@@ -5,8 +5,6 @@ import pymongo
 import sqlalchemy
 from sqlalchemy import create_engine
 
-from flask import Flask, request, render_template, jsonify, make_response, session
-
 import os
 
 # Heroku check
