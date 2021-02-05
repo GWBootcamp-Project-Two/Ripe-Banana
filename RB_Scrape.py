@@ -2,8 +2,6 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import pymongo
-import os
-
 
 def scrape_title(query):
     # URL of page to be scraped
