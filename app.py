@@ -50,27 +50,35 @@ def mongodata(query):
     db = client.shows_db
     collection = db.items
 
-    #BUILD TITLE FILTER
-    title_filter = {}
-    if query != '*': # the '*' means select everything 
-        title_filter = { 
-            "title" : {"$regex": f'.*{query}.*', "$options" :'i' } #this is like a sql LIKE statement
-            }
-
+  # TRY EXACT MATCH
+    title_filter = {  
+        "title": {"$regex": f'^{query}', "$options": 'i'}
+    }
     #FIND TITLE IN MONGO CACHE
-    dict_title = collection.find(title_filter, { '_id': 0 } )
-    df = pd.DataFrame(dict_title) 
-    if len(df) < 1: #NO RESULT FOUND IN CACHE
+    dict_title = collection.find(title_filter, {'_id': False})
+    df = pd.DataFrame(dict_title)
+    print(len(df))
+    if len(df) < 1:  # NO EXACT MATCH
+        title_filter = { 
+            # TRY LIKE * MATCH
+            "title": {"$regex": f'.*{query}.*', "$options": 'i'}
+        }
+        #FIND TITLE IN MONGO CACHE
+        dict_title = collection.find(title_filter, {'_id': False})
+        df = pd.DataFrame(dict_title)
+
+    print(title_filter)
+    if len(df) < 1:  # NO RESULT FOUND IN CACHE
         #SCRAPE TITLE
-        dict_title = scrape_title(query) 
+        dict_title = scrape_title(query)
+        #LOAD TITLE
+        df = pd.DataFrame([dict_title])
         #CACHE TITLE
         collection.insert_one(dict_title)
-        #LOAD TITLE
-        df = pd.DataFrame([dict_title]) 
 
     _json = df.to_json(orient='records', default_handler=str)
     resp = make_response(_json)
-    resp.headers['content-type'] = 'application/json'  
+    resp.headers['content-type'] = 'application/json'
     return resp
 
 ########################
