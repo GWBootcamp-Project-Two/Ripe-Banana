@@ -68,7 +68,7 @@ def mongodata(query):
         #LOAD TITLE
         df = pd.DataFrame([dict_title]) 
 
-    _json = df.to_json(orient='records')
+    _json = df.to_json(orient='records', default_handler=str)
     resp = make_response(_json)
     resp.headers['content-type'] = 'application/json'  
     return resp
