@@ -69,14 +69,19 @@ def mongodata(query):
 
     print(title_filter)
     if len(df) < 1:  # NO RESULT FOUND IN CACHE
-        #SCRAPE TITLE
+        # SCRAPE TITLE  
         dict_title = scrape_title(query)
         #LOAD TITLE
         df = pd.DataFrame([dict_title])
         #CACHE TITLE
         collection.insert_one(dict_title)
-
-    _json = df.to_json(orient='records', default_handler=str)
+     
+    try:
+        _json = df.to_json(orient='records', default_handler=str) 
+    except:
+        _json = '{"title":"' + query + ' not found" }'
+        print('to_json err')
+  
     resp = make_response(_json)
     resp.headers['content-type'] = 'application/json'
     return resp

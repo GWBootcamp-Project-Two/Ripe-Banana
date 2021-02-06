@@ -8,7 +8,7 @@ def scrape_title(query):
 
     base_url = 'https://reelgood.com'
     url = f'{base_url}/search?q={query}'
-
+    
     response = requests.get(url)
     # Create BeautifulSoup object; parse with 'html.parser'
     soup = BeautifulSoup(response.text, 'html.parser')
