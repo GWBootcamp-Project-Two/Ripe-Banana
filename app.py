@@ -37,14 +37,21 @@ engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_end
 # # # # # # # # # # # # # # # #  
 ## ROUTES   
 
-@app.route("/")
-def index(): 
-    return render_template("index.html") 
+# @app.route("/")
+# def index(): 
+#     return render_template("index.html") 
+
+@app.route("/search")
+def search(): 
+    return render_template("search.html") 
 
 ########################
 ## FIND A TITLE 
-@app.route("/api/lookup/<query>")
-def mongodata(query):
+@app.route("/api/lookup", methods=['POST'])
+def lookup():
+
+    query = request.form['media_title']
+
     #MONGO CACHE CONN
     client = pymongo.MongoClient(mongoConn) 
     db = client.shows_db
@@ -75,13 +82,16 @@ def mongodata(query):
         df = pd.DataFrame([dict_title])
         #CACHE TITLE
         collection.insert_one(dict_title)
-     
+ 
     try:
         _json = df.to_json(orient='records', default_handler=str) 
     except:
         _json = '{"title":"' + query + ' not found" }'
-        print('to_json err')
+        
+    _json = df.to_json(orient='records', default_handler=str)
   
+    print(_json)
+ 
     resp = make_response(_json)
     resp.headers['content-type'] = 'application/json'
     return resp
