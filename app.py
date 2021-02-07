@@ -52,10 +52,13 @@ def maps():
 ########################
 ## FIND A TITLE 
 @app.route("/api/lookup", methods=['POST'])
-def lookup():
+def get_title():
+    query = request.form['media_title'] 
+    return lookup(query)
 
-    query = request.form['media_title']
-
+@app.route("/api/lookup/<query>")
+def lookup(query):
+  
     #MONGO CACHE CONN
     client = pymongo.MongoClient(mongoConn) 
     db = client.shows_db
