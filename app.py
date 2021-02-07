@@ -45,6 +45,10 @@ def index():
 def search(): 
     return render_template("search.html") 
 
+@app.route("/maps")
+def maps(): 
+    return render_template("maps.html") 
+
 ########################
 ## FIND A TITLE 
 @app.route("/api/lookup", methods=['POST'])
