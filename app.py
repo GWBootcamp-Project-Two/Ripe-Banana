@@ -37,9 +37,9 @@ engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_end
 # # # # # # # # # # # # # # # #  
 ## ROUTES   
 
-# @app.route("/")
-# def index(): 
-#     return render_template("index.html") 
+@app.route("/")
+def index(): 
+    return render_template("index.html") 
 
 @app.route("/search")
 def search(): 
