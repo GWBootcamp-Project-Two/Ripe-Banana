@@ -1,5 +1,5 @@
 // Creating map object
-var myMap = L.map("map", {
+var myMap = L.map("subscriber-map", {
   center: [37.697, -97.314],
   zoom: 5
 });
@@ -20,10 +20,13 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // the program.
 // I imported a zip-code-to-latlng file so that we can make the maps dynamically
 
-url = 'subscriber2.json'
+console.log('trying to open file');
+url = './static/data/subscriber.json'
 
 // Grab the data with d3
-d3.json(url, function(response) {
+d3.json(url).then(function(response) {
+
+  console.log('in d3.json')
 
   console.log(response);
   // Create a new marker cluster group
@@ -36,8 +39,8 @@ d3.json(url, function(response) {
     var lat = response[i].lat;
     var lng = response[i].lng;
 
-    console.log(lat);
-    console.log(lng);
+    //console.log(lat);
+    //console.log(lng);
 
 
     // Add a new marker to the cluster group and bind a pop-up
