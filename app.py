@@ -4,7 +4,7 @@ import pymysql
 import pymongo
 import sqlalchemy
 from sqlalchemy import create_engine 
-from flask import Flask, request, render_template, jsonify, make_response
+from flask import Flask, request, render_template, jsonify, make_response, redirect
 import os 
 from RB_dbFunctions import insert_user, view_exists
 from RB_Scrape import scrape_title
@@ -141,21 +141,30 @@ def insert_service_selection():
 ## INSERT USER DATA
 @app.route("/create_user", methods=['GET', 'POST'])
 def create_user():
-    
-    user_dict = {
-        'User_Name': '',
-        'First_Name': '',
-        'Last_Name': '',
-        'Age': 0,
-        'Gender': '',
-        'Frequency_ID': '',
-        'Zip_Code': 20004,
-        'Audit': 'test',
-        'Services': ['']
-    }
-    userid = insert_user(user_dict)
-    
-    return ''
+
+    if request.method == "POST":
+        age = request.form["userAge"]
+        zips = request.form["userZip"]
+        frequency = request.form["userFreq"]
+        service = request.form["userServ"]
+
+        stream_dict = {
+            "User_Name":'TEST',
+            "First_Name":'TEST',
+            "Last_Name":'TEST',
+            'Age': age,
+            'Gender':'TEST',
+            'Frequency_ID': frequency,
+            'Zip_Code': zips,
+            'Audit':'TEST',
+            'Services': [service]
+        }
+
+        user_id = insert_user(stream_dict)
+
+        return redirect("/", code=302)
+
+    return render_template("create_user.html")
 
 ########################
 ## SEE IF TABLE / VIEW IN DB
