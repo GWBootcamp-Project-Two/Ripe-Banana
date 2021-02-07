@@ -146,7 +146,7 @@ cinemas.forEach(cinema => {
   screens = cinema['screens'];
 
   marker = L.marker(coordinates, {'title': name});
-  marker.bindPopup(`<h4>${name}</h4> <hr/> <h5>Status: ${status}</h5> <hr/> <h5>Screens: ${screens}</h5>`)  
+  marker.bindPopup(`<h5>${name}</h5> <hr/> <h5>Status: ${status}</h5> <hr/> <h5>Screens: ${screens}</h5>`)  
   marker.addTo(myMap);
 
 });

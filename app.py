@@ -37,21 +37,37 @@ engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_end
 # # # # # # # # # # # # # # # #  
 ## ROUTES   
 
-# @app.route("/")
-# def index(): 
-#     return render_template("index.html") 
+@app.route("/")
+def index(): 
+    return render_template("index.html") 
 
 @app.route("/search")
 def search(): 
     return render_template("search.html") 
 
+@app.route("/maps")
+def maps(): 
+    return render_template("maps.html") 
+
+@app.route("/plots", methods=['GET'])
+def plots():
+    #query = request.form['media_title'] 
+    return render_template("plots.html")
+
+@app.route("/lookup_result", methods=['GET'])
+def form():
+    #query = request.form['media_title'] 
+    return render_template("lookup_result.html")
 ########################
 ## FIND A TITLE 
 @app.route("/api/lookup", methods=['POST'])
-def lookup():
+def get_title():
+    query = request.form['media_title'] 
+    return lookup(query)
 
-    query = request.form['media_title']
-
+@app.route("/api/lookup/<query>")
+def lookup(query):
+  
     #MONGO CACHE CONN
     client = pymongo.MongoClient(mongoConn) 
     db = client.shows_db
