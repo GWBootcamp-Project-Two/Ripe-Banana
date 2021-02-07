@@ -49,6 +49,15 @@ def search():
 def maps(): 
     return render_template("maps.html") 
 
+@app.route("/plots", methods=['GET'])
+def plots():
+    #query = request.form['media_title'] 
+    return render_template("plots.html")
+
+@app.route("/lookup_result", methods=['GET'])
+def form():
+    #query = request.form['media_title'] 
+    return render_template("lookup_result.html")
 ########################
 ## FIND A TITLE 
 @app.route("/api/lookup", methods=['POST'])

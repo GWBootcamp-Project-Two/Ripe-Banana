@@ -1,0 +1,25 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+ 
+<input type="text" value="Pulp Fiction" name="media_title" id="media_title">
+<input type="submit" id="searchsubmit" value="Search" />
+ 
+<script> 
+    function render_search_results(){
+        var media_title = d3.select('#media_title').property('value'); 
+        if(media_title==''){  return null ;  } 
+        d3.json("/api/lookup/" + media_title).then((data) => { 
+            data.forEach(title => {
+                console.log(title);
+                /*
+                BUILD THE HTML RESULTS HERE
+                USE YOUR Bellybutton Biodiversity Excercise
+                */
+            }); 
+        });
+    }; 
+    
+    var searchsubmit = d3.select('#searchsubmit');
+    searchsubmit.on('click', render_search_results);
+</script>
