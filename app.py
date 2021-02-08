@@ -25,6 +25,7 @@ if is_heroku == True:
     remote_db_name = os.environ.get('remote_db_name')
     remote_db_user = os.environ.get('remote_db_user')
     remote_db_pwd = os.environ.get('remote_db_pwd')
+    accessToken = os.environ.get('accessToken')
     
 else:
     # use the config.py file if IS_HEROKU is not detected
@@ -46,7 +47,7 @@ def index():
         if query != '':
             df_titles = lookup(query)
             print(df_titles.to_dict(orient='records'))
-    return render_template("index.html", titles=df_titles.to_dict(orient='records'), api_key='tacocat')
+    return render_template("index.html", titles=df_titles.to_dict(orient='records'), accessToken=accessToken)
 
 @app.route("/search")
 def search(): 
