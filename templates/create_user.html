@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>User Form</title>
   <link rel="stylesheet" href="static/style/main.css" media="screen">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 
 <body>
@@ -91,5 +92,19 @@
       </div>
     </div>
   </div>
+<script>
+  function init_servicelist() {
+    var inputserv = d3.select('#inputServ')
+    d3.json("/api/view/VW_ServiceByPopularity").then((services) => {
+      inputserv.html('');
+      services.forEach(service => {
+        inputserv.append('option').attr('value', service['Service_ID']).text(service['Service_Name'])
+        //console.log(service['Service_ID']); 
+      });
+    });
+  };
+  init_servicelist();
+
+</script>
 </body>
 </html>

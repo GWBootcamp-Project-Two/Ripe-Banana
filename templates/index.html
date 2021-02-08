@@ -40,6 +40,7 @@ crossorigin=""></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
 
 <!-- JavaScript file for the Marker Clusters -->
+<script src="{{url_for('static', filename='js/app.js')}}" defer></script>
 <script src="{{url_for('static', filename='js/config.js')}}" defer></script>
 <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
 
@@ -154,7 +155,7 @@ crossorigin=""></script>
 <div class="w3-container w3-padding-64 w3-center" id="search">
         <h2>Search</h2>
         <!-- Input form -->
-        <form method="POST" action="/api/lookup">
+        <form method="POST" action="/lookup_result">
             <div id="search-10" class="widget_search">
         
                 <div style="text-align: center;">
