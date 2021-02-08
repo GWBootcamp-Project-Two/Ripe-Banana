@@ -57,6 +57,11 @@ def search():
 def maps():
     return render_template("maps.html", accessToken=accessToken)
 
+
+@app.route("/map")
+def map():
+    return render_template("maps.html", accessToken=accessToken)
+
 @app.route("/thankyou")
 def thankyou():
     return render_template("thankyou.html")
