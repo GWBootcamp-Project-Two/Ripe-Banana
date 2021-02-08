@@ -108,7 +108,7 @@ crossorigin=""></script>
     </head>
     
     <body>
-    
+    <!--
     <div class="w3-content w3-section" style="max-width:800px">
       <img class="mySlides" src="static/images/landing1.jpg" style="width:100%">
       <img class="mySlides" src="static/images/landing2.jpg" style="width:100%">
@@ -116,7 +116,10 @@ crossorigin=""></script>
       <img class="mySlides" src="static/images/landing4.jpg" style="width:100%">
       <img class="mySlides" src="static/images/disney.jpg" style="width:100%">
     </div>
-    
+  -->
+    <div class='jumbotron'>
+      <img class="banner" src="static/images/r2.jpg" style="width:100%">
+    </div>
     <script>
     var myIndex = 0;
     carousel();
@@ -170,7 +173,7 @@ crossorigin=""></script>
             </div>
         </form>
         <div id="result-container" class="container">
-
+        
           <!-- <h1>Results</h1> -->
 
           {% for t in titles %}
@@ -191,7 +194,8 @@ crossorigin=""></script>
                 <h4>Where to watch:</h4>
                 <div>
                   {% for s in t.services %}
-                  <div class='serviceItem'>{{s}}</div>
+                  
+                  <div class='serviceItem' data-service="{{s}}">{{s}}</div>
                   {% endfor %}
                 </div>
                 <p>{{t.description}}</p>
@@ -205,7 +209,18 @@ crossorigin=""></script>
             </div>
           </div>
           {% endfor %}
+          <script >
 
+            function link_looker_upper() {
+   
+
+                  d3.json("/api/view/VW_ServicesURL").then((services) => {
+                    
+                    
+                  });
+            };
+            link_looker_upper();
+          </script>
         </div>
 </div>
 

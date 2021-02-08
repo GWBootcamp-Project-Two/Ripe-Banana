@@ -92,3 +92,6 @@ def view_exists(db_view_name):
     df = df.loc[df.DB_VIEW == db_view_name]
     conn.close()
     return len(df) > 0
+
+
+

@@ -180,6 +180,7 @@ def create_user():
 ## SEE IF TABLE / VIEW IN DB
 
 
+
 # run the app in debug mode
 if __name__ == "__main__":
     app.secret_key = os.urandom(24)
