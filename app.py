@@ -25,10 +25,10 @@ if is_heroku == True:
     remote_db_name = os.environ.get('remote_db_name')
     remote_db_user = os.environ.get('remote_db_user')
     remote_db_pwd = os.environ.get('remote_db_pwd')
+    
 else:
     # use the config.py file if IS_HEROKU is not detected
     from config import mongoConn, remote_db_endpoint, remote_db_port, remote_db_name, remote_db_user, remote_db_pwd
-
 # # # # # # # # # # # # # # # #   
 ## MY SQL CONN 
 pymysql.install_as_MySQLdb() 
@@ -46,7 +46,7 @@ def index():
         if query != '':
             df_titles = lookup(query)
             print(df_titles.to_dict(orient='records'))
-    return render_template("index.html", titles=df_titles.to_dict(orient='records'))
+    return render_template("index.html", titles=df_titles.to_dict(orient='records'), api_key='tacocat')
 
 @app.route("/search")
 def search(): 
