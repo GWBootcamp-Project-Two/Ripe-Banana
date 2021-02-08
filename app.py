@@ -49,23 +49,19 @@ def search():
 def maps(): 
     return render_template("maps.html") 
 
-@app.route("/plots", methods=['GET', 'POST'])
+
+@app.route("/lookup_result", methods=['GET', 'POST'])
 def plots():
     #query = request.form['media_title'] 
     df_titles = pd.DataFrame()
-    if request.method == 'POST':
-        service = request.form.getlist('userServ')
-        print(service) 
+    if request.method == 'POST': 
         query = request.form['media_title']
         if query != '':
             df_titles = lookup(query)
+            print(df_titles.to_dict(orient='records'))
   
-    return render_template("plots.html", titles=df_titles.to_dict(orient='records'))
-
-@app.route("/lookup_result", methods=['GET'])
-def form():
-    #query = request.form['media_title'] 
-    return render_template("lookup_result.html")
+    return render_template("lookup_result.html", titles=df_titles.to_dict(orient='records'))
+ 
 ########################
 ## FIND A TITLE 
 @app.route("/api/lookup", methods=['POST'])
