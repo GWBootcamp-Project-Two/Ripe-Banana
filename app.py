@@ -29,7 +29,7 @@ if is_heroku == True:
     
 else:
     # use the config.py file if IS_HEROKU is not detected
-    from config import mongoConn, remote_db_endpoint, remote_db_port, remote_db_name, remote_db_user, remote_db_pwd
+    from config import mongoConn, remote_db_endpoint, remote_db_port, remote_db_name, remote_db_user, remote_db_pwd, accessToken
 # # # # # # # # # # # # # # # #   
 ## MY SQL CONN 
 pymysql.install_as_MySQLdb() 
@@ -52,6 +52,10 @@ def index():
 @app.route("/search")
 def search(): 
     return render_template("search.html") 
+
+@app.route("/maps")
+def maps():
+    return render_template("maps.html", accessToken=accessToken)
 
 @app.route("/thankyou")
 def thankyou():
