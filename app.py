@@ -37,17 +37,24 @@ engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_end
 # # # # # # # # # # # # # # # #  
 ## ROUTES   
 
-@app.route("/")
+
+@app.route("/", methods=['GET', 'POST'])
 def index(): 
-    return render_template("index.html") 
+    df_titles = pd.DataFrame()
+    if request.method == 'POST':
+        query = request.form['media_title']
+        if query != '':
+            df_titles = lookup(query)
+            print(df_titles.to_dict(orient='records'))
+    return render_template("index.html", titles=df_titles.to_dict(orient='records'))
 
 @app.route("/search")
 def search(): 
     return render_template("search.html") 
 
-@app.route("/maps")
-def maps(): 
-    return render_template("maps.html") 
+@app.route("/thankyou")
+def thankyou():
+    return render_template("thankyou.html")
 
 
 @app.route("/lookup_result", methods=['GET', 'POST'])
@@ -155,7 +162,7 @@ def create_user():
         } 
         print(stream_dict)
         user_id = insert_user(stream_dict) 
-        return redirect("/", code=302)
+        return redirect("/thankyou", code=302)
 
     return render_template("create_user.html")
 

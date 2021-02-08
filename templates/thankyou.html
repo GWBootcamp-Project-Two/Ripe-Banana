@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ripe Bananas!</title>
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+    <!-- Our own CSS stylesheet -->
+    <link rel="stylesheet" href="static/style/main.css" media="screen">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- CSS For Marker Clusters -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- Leaflet JS and CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Marker Cluster JS -->
+
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+
+    <!-- JavaScript file for the Marker Clusters -->
+    <script src="{{url_for('static', filename='js/app.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/config.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
+
+
+</head>
+
+<body id="myPage">
+
+ 
+ 
+    <div class="w3-container w3-padding-64 w3-center" id="team">
+        <h1>Thank You!</h1>
+        <a href="/">Click here to go Home</a>
+        <br>
+        <img src="static/images/logo.jpg" style="width:600px;height:600px;">
+    </div>
+
+    <!-- Team Container -->
+    <div class="w3-container w3-padding-64 w3-center" id="team">
+        <h2>Meet the Team</h2>
+        <h4>AKA The Forgotten Dartlings!</h4>
+        <img src="static/images/logo.jpg" style="width:600px;height:600px;">
+
+        <div class="w3-row"><br>
+
+            <div class="w3-third">
+                <h3>William Pappas</h3>
+                <h5>Web Scraping Pro - basically a Whiz Kid</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Desiree Herschberger</h3>
+                <h5>Database Phenomenon! A jack of all trades! </h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Redeat Bekele</h3>
+                <h5>Exceptional and remarkable - What CAN'T she do?!</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Thomas Keane</h3>
+                <h5>Flask and Plotly Wizard! Quiet but watch out for him!</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Taslemun Nahar</h3>
+                <h5>Java and HTML Artiste - absolutely incredible!</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Sveena Sharma</h3>
+                <h5>Web Development - just here for a good time</h5>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Start of Footer -->
+    <footer>
+        <p>The Forgotten Dartlings 2021<br>
+    </footer>
+    <!-- End of Footer -->
+
+    <script>
+        // Script for side navigation
+        function w3_open() {
+            var x = document.getElementById("mySidebar");
+            x.style.width = "300px";
+            x.style.paddingTop = "10%";
+            x.style.display = "block";
+        }
+
+        // Close side navigation
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+/*This css targes the look up titles*/
+        
+        #result-container .singleTitleUnit{
+        padding: 1em;
+        margin: 1em 0em;
+        border-bottom: 1px solid #5a5858;
+}
+        #result-container .feature_img{
+        max-height: 300px;
+        padding: 1em;
+        margin: 1em 0em;
+        border: 1px solid #BFBFBF;
+        background-color: white;
+        box-shadow: 10px 10px 5px #aaaaaa;
+}
+        #result-container .serviceItem{
+        border: 1px solid #ddd;
+        background-color: #f8f8f8;
+        padding: 1em;
+        margin: .25em 0em;
+        display: inline-block;
+        min-width: 40%;
+        border-radius: 1em;
+    }
+        #result-container label{
+        font-weight: bold;
+        font-size: 18px;
+        display: inline-block;
+    }
+      #result-container .recommendedTitle{
+        font-weight: bold;
+        font-size: 18px;
+        padding-top: 1em;
+    }

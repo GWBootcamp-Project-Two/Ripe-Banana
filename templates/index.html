@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="static/style/main.css" media="screen">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{url_for('static', filename='style/titles.css')}}" media="screen">
 
 <!-- CSS For Marker Clusters -->
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
@@ -155,7 +156,7 @@ crossorigin=""></script>
 <div class="w3-container w3-padding-64 w3-center" id="search">
         <h2>Search</h2>
         <!-- Input form -->
-        <form method="POST" action="/lookup_result">
+        <form method="POST" action="/">
             <div id="search-10" class="widget_search">
         
                 <div style="text-align: center;">
@@ -165,7 +166,44 @@ crossorigin=""></script>
             
             </div>
         </form>
+        <div id="result-container" class="container">
 
+          <!-- <h1>Results</h1> -->
+
+          {% for t in titles %}
+          <div class='singleTitleUnit'>
+            <div class="row">
+              <div class="col-lg-6">
+                <img class='feature_img' src="{{t.feature_img}}" alt="">
+
+                <h4 class='recommendedTitle'>Recommended Titles:</h4>
+                <div>
+                  {% for s in t.recommended[0:5] %}
+                  <div>{{s}}</div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <h3>{{t.title}}</h3>
+                <h4>Where to watch:</h4>
+                <div>
+                  {% for s in t.services %}
+                  <div class='serviceItem'>{{s}}</div>
+                  {% endfor %}
+                </div>
+                <p>{{t.description}}</p>
+                <label>IMDb Rating:</label>{{t.rating}}
+                <label>Maturity Rating:</label>{{t.maturity}}
+                <br>
+                <label>Genre:</label>{{t.genre}}
+                <label>Country:</label>{{t.country}}
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
 </div>
 
 <!-- Streaming Comparison Row -->
