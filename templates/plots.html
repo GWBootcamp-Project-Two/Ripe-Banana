@@ -1,24 +1,84 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<form method="POST" action="/api/lookup" role="form" , name="form">
+    <input class="ubicacion" type="text" value="" name="media_title" id="media_title">
+    <input type="submit" value="submit" class="btn btn-primary">
+</form>
  
-<script> 
-    function plot_results(){ 
-        d3.json("/api/view/vw_service_count").then((data) => { 
-            data.forEach(item => {
-                console.log(item);
-                /*  BUILD PLOTS HERE USE YOUR Bellybutton Biodiversity Excercise
-                */
-            }); 
-        });
-        d3.json("/api/view/vw_service_type_count").then((data) => {
-            data.forEach(item => {
-                console.log(item);
-                /*  BUILD PLOTS HERE USE YOUR Bellybutton Biodiversity Excercise
-                */
+ 
+    {% for t in titles %}
+        <h2>{{t.title}}</h2>
+        <ul>
+        {% for s in t.services %}
+          <li>{{s}}</li> 
+        {% endfor %} 
+        </ul>
+    {% endfor %}
+ 
+
+<!--
+        <input class="ubicacion" type="text" value="" name="media_title" id="media_title">
+        <input type="submit" id="searchsubmit" value="Search" />
+--->
+<div id='titlecontainer'></div>
+<script>
+    var submit = d3.select('#searchsubmit');
+        //Event Listener for dropdown
+    submit.on('click', doLookup);
+    function doLookup() {
+        var mediatitle = d3.select('#media_title').property('value');
+        var titlecontainer = d3.select('#titlecontainer');
+        d3.json(`/api/lookup/${mediatitle}`).then((titles) => {
+            //inputserv.html('');
+            titles.forEach(title => {
+                //add titles
+                var h1 = titlecontainer.append('h1');
+                h1.text(title.title);
+                //add services
+                var ul = titlecontainer.append('ul');
+                title.services.forEach(i => {
+                    var li = ul.append('li');
+                    li.text(i);
+                });
+                //add rating
+                var h3 = titlecontainer.append('h3');
+                h3.text(`IMDb Rating: ${title.rating}`);
+                console.log(title.rating); 
+                //add genre
+                var h3 = titlecontainer.append('h3');
+                h3.text(`Genre: ${title.genre}`);
+                console.log(title.genre); 
+                //add Maturity Rating
+                var h3 = titlecontainer.append('h3');
+                h3.text(`Rated: ${title.maturity}`);
+                console.log(title.maturity); 
+                //add country
+                var h3 = titlecontainer.append('h3');
+                h3.text(`Country: ${title.country}`);
+                console.log(title.country); 
+                //add description
+                var div = titlecontainer.append('div');
+                div.text(title.description);
+                //add recommendations
+                var ul = titlecontainer.append('ul');
+                title.recommended.slice(0, 5).forEach(i => {
+                    var li = ul.append('li');
+                    li.text(i);
+                })
+                //add image
+                var img = titlecontainer.append('img');
+                img.attr('src', title.feature_img);
+                img.attr('class', 'feature_img')
+ 
             });
         });
-        
     };
-    plot_results(); 
-  
+    //doLookup();
+
 </script>
+<style>
+    #titlecontainer .feature_img{
+        max-height: 300px;
+    }
+</style>

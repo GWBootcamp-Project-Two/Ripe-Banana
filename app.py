@@ -49,10 +49,18 @@ def search():
 def maps(): 
     return render_template("maps.html") 
 
-@app.route("/plots", methods=['GET'])
+@app.route("/plots", methods=['GET', 'POST'])
 def plots():
     #query = request.form['media_title'] 
-    return render_template("plots.html")
+    df_titles = pd.DataFrame()
+    if request.method == 'POST':
+        service = request.form.getlist('userServ')
+        print(service) 
+        query = request.form['media_title']
+        if query != '':
+            df_titles = lookup(query)
+  
+    return render_template("plots.html", titles=df_titles.to_dict(orient='records'))
 
 @app.route("/lookup_result", methods=['GET'])
 def form():
@@ -61,13 +69,21 @@ def form():
 ########################
 ## FIND A TITLE 
 @app.route("/api/lookup", methods=['POST'])
-def get_title():
-    query = request.form['media_title'] 
-    return lookup(query)
+def post_title():
+    query = request.form['media_title']  
+    df = lookup(query)
+    return render_template("plots.html", titles=df.to_dict(orient='records'))
 
 @app.route("/api/lookup/<query>")
-def lookup(query):
-  
+def get_title(query):
+    df = lookup(query)
+    _json = df.to_json(orient='records', default_handler=str) 
+    #print(_json) 
+    resp = make_response(_json)
+    resp.headers['content-type'] = 'application/json'
+    return resp
+ 
+def lookup(query): 
     #MONGO CACHE CONN
     client = pymongo.MongoClient(mongoConn) 
     db = client.shows_db
@@ -98,19 +114,9 @@ def lookup(query):
         df = pd.DataFrame([dict_title])
         #CACHE TITLE
         collection.insert_one(dict_title)
- 
-    try:
-        _json = df.to_json(orient='records', default_handler=str) 
-    except:
-        _json = '{"title":"' + query + ' not found" }'
-        
-    _json = df.to_json(orient='records', default_handler=str)
-  
-    print(_json)
- 
-    resp = make_response(_json)
-    resp.headers['content-type'] = 'application/json'
-    return resp
+
+    return df
+    
 
 ########################
 ## GET DATA FROM DB RETURN JSON
@@ -128,14 +134,7 @@ def get_db_view(db_view_name):
     resp.headers['content-type'] = 'application/json' 
     conn.close()
     return resp
-
-
-########################
-## INSERT FOR WHEN SERVICE IS SELECTED
-@app.route("/insert_service_selection", methods=['GET', 'POST'])
-def insert_service_selection():  
-    ## INSERT HERE 
-    return ''
+ 
 
 ########################
 ## INSERT USER DATA
@@ -145,23 +144,21 @@ def create_user():
     if request.method == "POST":
         age = request.form["userAge"]
         zips = request.form["userZip"]
-        frequency = request.form["userFreq"]
-        service = request.form["userServ"]
-
+        frequency = request.form["userFreq"] 
+        service = request.form.getlist('userServ')
         stream_dict = {
-            "User_Name":'TEST',
-            "First_Name":'TEST',
-            "Last_Name":'TEST',
+            "User_Name":'',
+            "First_Name":'',
+            "Last_Name":'',
             'Age': age,
-            'Gender':'TEST',
+            'Gender':'',
             'Frequency_ID': frequency,
             'Zip_Code': zips,
             'Audit':'TEST',
-            'Services': [service]
-        }
-
-        user_id = insert_user(stream_dict)
-
+            'Services': service
+        } 
+        print(stream_dict)
+        user_id = insert_user(stream_dict) 
         return redirect("/", code=302)
 
     return render_template("create_user.html")
