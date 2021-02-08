@@ -41,13 +41,14 @@ engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_end
 
 @app.route("/", methods=['GET', 'POST'])
 def index(): 
+    tab = ''
     df_titles = pd.DataFrame()
     if request.method == 'POST':
         query = request.form['media_title']
         if query != '':
             df_titles = lookup(query)
-            print(df_titles.to_dict(orient='records'))
-    return render_template("index.html", titles=df_titles.to_dict(orient='records'), accessToken=accessToken)
+            tab = 'search'
+    return render_template("index.html", titles=df_titles.to_dict(orient='records'), accessToken=accessToken, tab=tab)
 
 @app.route("/search")
 def search(): 

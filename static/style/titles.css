@@ -9,9 +9,9 @@
         max-height: 300px;
         padding: 1em;
         margin: 1em 0em;
-        border: 1px solid #BFBFBF;
+        border: 1px solid #bfbfbf;
         background-color: white;
-        box-shadow: 10px 10px 5px #aaaaaa;
+        box-shadow: 10px 10px 5px #33200c;
 }
         #result-container .serviceItem{
         border: 1px solid #ddd;
@@ -31,4 +31,13 @@
         font-weight: bold;
         font-size: 18px;
         padding-top: 1em;
+    }
+    #searchsubmit, #media_title{
+    padding: .5em 1em !important;
+    font-size: 2em !important;
+    border: .5px solid #33200c;
+    }
+
+    .searchlogo{
+        max-width: 100px;
     }

@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Ripe Bananas!</title>
-<link rel="shortcut icon" type="image/jpg" href="static/images/favicon.png"/>
+<link rel="shortcut icon" type="image/jpg" href="static/images/favicon.ico"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -70,7 +70,7 @@ crossorigin=""></script>
 <div class="w3-top">
  <div class="w3-bar w3-theme-d2 w3-left-align">
   <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-yellow"><i class="fa fa-home w3-margin-right"></i><img src="static/images/loho-v-b.png" style='max-height: 25px;' alt=""></a>
+  <a href="#" class="w3-bar-item w3-button w3-yellow"><i class="fa fa-home w3-margin-right"></i><img src="static/images/rb-logo.png" style='max-height: 25px;' alt=""></a>
   <a href="#search" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Search</a>
   <a href="#streaming" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Streaming Services Comparison</a>
   <a href="#plotly" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Visualizations</a>
@@ -162,7 +162,9 @@ crossorigin=""></script>
 
 <!-- Team Container -->
 <div class="w3-container w3-padding-64 w3-center" id="search">
-        <h2>Search</h2>
+  <a name='search'></a>
+    
+        <h2>Search Your Title</h2>
         <!-- Input form -->
         <form method="POST" action="/">
             <div id="search-10" class="widget_search">
@@ -211,18 +213,7 @@ crossorigin=""></script>
             </div>
           </div>
           {% endfor %}
-          <script >
-
-            function link_looker_upper() {
-   
-
-                  d3.json("/api/view/VW_ServicesURL").then((services) => {
-                    
-                    
-                  });
-            };
-            link_looker_upper();
-          </script>
+          <img class='searchlogo' src="/static/images/bm-b-200.png" alt="">
         </div>
 </div>
 
@@ -235,6 +226,7 @@ crossorigin=""></script>
       <li>Device Limit</li>
       <li>Number of User Profiles</li>
     </h4>
+  
 </div>
 
 <!-- Plotly Row -->
@@ -395,8 +387,12 @@ function openNav() {
   } else { 
     x.className = x.className.replace(" w3-show", "");
   }
-}
+
 </script>
+
+{% if tab == 'search' %}
+  <script>location.href = '#{{tab}}';</script>
+{% endif %}
 
 </body>
 </html>
