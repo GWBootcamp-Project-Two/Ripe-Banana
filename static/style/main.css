@@ -46,6 +46,10 @@ html,body,button{
 
 html{overflow-x:hidden}
 
+body {
+  background-color: #F1F1F1;
+}
+
 h1,h2,h3,h4,h5,h6{
   font-family: Lato,sans-serif;
   line-height: 1em;
