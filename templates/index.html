@@ -44,8 +44,7 @@ crossorigin=""></script>
 <script>
   API_KEY = '{{accessToken}}';
 </script>
-<script src="{{url_for('static', filename='js/app.js')}}" defer></script>
-<script src="{{url_for('static', filename='js/config.js')}}" defer></script>
+<script src="{{url_for('static', filename='js/app.js')}}" defer></script> 
 <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
 
 
@@ -129,6 +128,7 @@ crossorigin=""></script>
     carousel();
     
     function carousel() {
+      return;
       var i;
       var x = document.getElementsByClassName("mySlides");
       for (i = 0; i < x.length; i++) {
@@ -172,7 +172,7 @@ crossorigin=""></script>
             <div id="search-10" class="widget_search">
         
                 <div style="text-align: center;">
-                <input class="ubicacion" type="text" value="" name="media_title" id="media_title">
+                <input class="ubicacion" type="text" placeholder="star wars" value="" name="media_title" id="media_title">
                 <input type="submit" id="searchsubmit" value="Search"/>
                 </div>
             
@@ -191,20 +191,26 @@ crossorigin=""></script>
                 <h4 class='recommendedTitle'>Recommended Titles:</h4>
                 <div>
                   {% for s in t.recommended[0:5] %}
-                  <div>{{s}}</div>
+                    <div>{{s}}</div>
                   {% endfor %}
                 </div>
               </div>
               <div class="col-lg-6">
                 <h3>{{t.title}}</h3>
                 <h4>Where to watch:</h4>
-                <div>
-                  {% for s in t.services %}
-                  
-                  <div class='serviceItem' data-service="{{s}}">{{s}}</div>
+                <div> 
+                  {% for s in t.services_info %} 
+                    <a href="http://www.{{s.Service_URL}}" target="_blank">
+                    <div class='serviceItem' >
+                      <img src="{{s.Service_Img}}" alt="">
+                      {{s.Service_Name}}
+                      {{s.Service_Type}}
+                    </div>
+                    </a>
                   {% endfor %}
                 </div>
-                <p>{{t.description}}</p>
+                
+                <p class="title-description">{{t.description}}</p>
                 <label>IMDb Rating:</label>{{t.rating}}
                 <label>Maturity Rating:</label>{{t.maturity}}
                 <br>
@@ -368,6 +374,7 @@ crossorigin=""></script>
   </div>
   
 <!-- Start of Footer -->
+<img src="/static/images/footer.png" style="width:100%" alt="">
 <footer>
   <p>The Forgotten Dartlings 2021<br>
 </footer>
@@ -395,12 +402,12 @@ function openNav() {
   } else { 
     x.className = x.className.replace(" w3-show", "");
   }
-
+};
 </script>
-
 {% if tab == 'search' %}
-  <script>location.href = '#{{tab}}';</script>
+<script>location.href = '#{{tab}}';</script>
 {% endif %}
+
 
 </body>
 </html>

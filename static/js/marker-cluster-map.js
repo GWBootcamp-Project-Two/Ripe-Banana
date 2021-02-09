@@ -20,15 +20,15 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // the program.
 // I imported a zip-code-to-latlng file so that we can make the maps dynamically
 
-console.log('trying to open file');
+//console.log('trying to open file');
 url = './static/data/subscriber.json'
 
 // Grab the data with d3
 d3.json(url).then(function(response) {
 
-  console.log('in d3.json')
+  //console.log('in d3.json')
 
-  console.log(response);
+  //console.log(response);
   // Create a new marker cluster group
   var markers = L.markerClusterGroup();
 

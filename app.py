@@ -6,7 +6,7 @@ import sqlalchemy
 from sqlalchemy import create_engine 
 from flask import Flask, request, render_template, jsonify, make_response, redirect
 import os 
-from RB_dbFunctions import insert_user, view_exists
+from RB_dbFunctions import insert_user, view_exists, get_dataframe_from_db
 from RB_Scrape import scrape_title
 app = Flask(__name__)  
 
@@ -109,70 +109,88 @@ def lookup(query):
     }
     #FIND TITLE IN MONGO CACHE
     dict_title = collection.find(title_filter, {'_id': False})
-    df = pd.DataFrame(dict_title)
-    print(len(df))
-    if len(df) < 1:  # NO EXACT MATCH
+    df_title = pd.DataFrame(dict_title)
+  
+    if len(df_title) < 1:  # NO EXACT MATCH
         title_filter = { 
             # TRY LIKE * MATCH
             "title": {"$regex": f'.*{query}.*', "$options": 'i'}
         }
         #FIND TITLE IN MONGO CACHE
         dict_title = collection.find(title_filter, {'_id': False})
-        df = pd.DataFrame(dict_title)
+        df_title = pd.DataFrame(dict_title)
 
     print(title_filter)
-    if len(df) < 1:  # NO RESULT FOUND IN CACHE
-        # SCRAPE TITLE  
-        dict_title = scrape_title(query)
-        #LOAD TITLE
-        df = pd.DataFrame([dict_title])
-        #CACHE TITLE
-        collection.insert_one(dict_title)
+    if len(df_title) < 1:  # NO RESULT FOUND IN CACHE 
+        dict_title = scrape_title(query)  # SCRAPE TITLE 
+        df_title = pd.DataFrame([dict_title])  # LOAD TITLE 
+        collection.insert_one(dict_title)  # CACHE TITLE
 
-    return df
+    try:# TO MAP SERVICE INFO TO MONGO DATA
+        df_StreamingServices = get_dataframe_from_db('streamingservices')
+      
+        df_StreamingServices.rename(columns={0: 'Service_ID', 1: 'Service_Name',
+                            2: 'Service_Type', 3: 'Service_Img', 4: 'Service_Url'}, inplace=True)
+ 
+        dic_titles = df_title.to_dict(orient='records')
+ 
+        for title in dic_titles:
+            title['services_info'] = []
+            for service in title['services']:
+                try:
+                    df_services_info = df_StreamingServices.loc[df_StreamingServices['Service_Name'] == service]
+                    dict_services_info = df_services_info.to_dict(orient='records')[0]
+                    print(f'StreamingServices Record : {dict_services_info}')
+                    title['services_info'].append(dict_services_info)
+                    print(f'Scraped Service : {service} ')
+                except:
+                    print(f'{service} meta not found')
+                    #raise
+        df_title = pd.DataFrame(dic_titles) 
+    except:
+        print(f' Services Failed to Map') 
+        #raise
+         
+    return df_title
     
 
 ########################
 ## GET DATA FROM DB RETURN JSON
 @app.route("/api/view/<db_view_name>") #set up for testing need to SECCURE!!!!!
 def get_db_view(db_view_name): 
-
-    conn = engine.connect()  
-    if not view_exists(db_view_name):
-        return 'db view object not found / invalid'
-
-    sql = f''' SELECT * FROM {db_view_name}'''
-    df = pd.read_sql(sql, con=conn)
+ 
+    df = get_dataframe_from_db(db_view_name)
     _json = df.to_json(orient='records')
     resp = make_response(_json)
-    resp.headers['content-type'] = 'application/json' 
-    conn.close()
+    resp.headers['content-type'] = 'application/json'  
     return resp
  
 
 ########################
 ## INSERT USER DATA
 @app.route("/create_user", methods=['GET', 'POST'])
-def create_user():
-
+def create_user(): 
     if request.method == "POST":
-        age = request.form["userAge"]
-        zips = request.form["userZip"]
-        frequency = request.form["userFreq"] 
-        service = request.form.getlist('userServ')
-        stream_dict = {
-            "User_Name":'',
-            "First_Name":'',
-            "Last_Name":'',
-            'Age': age,
-            'Gender':'',
-            'Frequency_ID': frequency,
-            'Zip_Code': zips,
-            'Audit':'TEST',
-            'Services': service
-        } 
-        print(stream_dict)
-        user_id = insert_user(stream_dict) 
+        try:
+            age = request.form["userAge"]
+            zips = request.form["userZip"]
+            frequency = request.form["userFreq"] 
+            service = request.form.getlist('userServ')
+            stream_dict = {
+                "User_Name":'',
+                "First_Name":'',
+                "Last_Name":'',
+                'Age': age,
+                'Gender':'',
+                'Frequency_ID': frequency,
+                'Zip_Code': zips,
+                'Audit':'TEST',
+                'Services': service
+            }  
+            user_id = insert_user(stream_dict) 
+            print(f'{str(user_id)}{stream_dict}')
+        except:
+            print(f'create user fail')
         return redirect("/thankyou", code=302)
 
     return render_template("create_user.html")

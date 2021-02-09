@@ -94,4 +94,12 @@ def view_exists(db_view_name):
     return len(df) > 0
 
 
+def get_dataframe_from_db(db_view_name):
+    conn = engine.connect()
+    if not view_exists(db_view_name):
+        return 'db view object not found / invalid' 
+    sql = f''' SELECT * FROM {db_view_name}'''
+    df = pd.read_sql(sql, con=conn)
+    conn.close()
+    return df
 
