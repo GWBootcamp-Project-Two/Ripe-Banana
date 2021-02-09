@@ -172,7 +172,7 @@ crossorigin=""></script>
             <div id="search-10" class="widget_search">
         
                 <div style="text-align: center;">
-                <input class="ubicacion" type="text" placeholder="star wars" value="" name="media_title" id="media_title">
+                <input class="ubicacion" type="text" placeholder="" value="" name="media_title" id="media_title">
                 <input type="submit" id="searchsubmit" value="Search"/>
                 </div>
             
@@ -182,40 +182,40 @@ crossorigin=""></script>
         
           <!-- <h1>Results</h1> -->
 
-          {% for t in titles %}
+          {% for title in titles %}
           <div class='singleTitleUnit'>
             <div class="row">
               <div class="col-lg-6">
-                <img class='feature_img' src="{{t.feature_img}}" alt="">
+                <img class='feature_img' src="{{title.feature_img}}" alt="">
 
                 <h4 class='recommendedTitle'>Recommended Titles:</h4>
                 <div>
-                  {% for s in t.recommended[0:5] %}
-                    <div>{{s}}</div>
+                  {% for reco in title.recommended[0:5] %}
+                    <div>{{reco}}</div>
                   {% endfor %}
                 </div>
               </div>
               <div class="col-lg-6">
-                <h3>{{t.title}}</h3>
+                <h3>{{title.title}}</h3>
                 <h4>Where to watch:</h4>
                 <div> 
-                  {% for s in t.services_info %} 
-                    <a href="http://www.{{s.Service_URL}}" target="_blank">
+                  {% for service in title.services_info %} 
+                    <a href="http://www.{{service.Service_URL}}" target="_blank">
                     <div class='serviceItem' >
-                      <img src="{{s.Service_Img}}" alt="">
-                      {{s.Service_Name}}
-                      {{s.Service_Type}}
+                      <img src="{{service.Service_Img}}" alt="">
+                      {{service.Service_Name}}
+                      {{service.Service_Type}}
                     </div>
                     </a>
                   {% endfor %}
                 </div>
                 
-                <p class="title-description">{{t.description}}</p>
-                <label>IMDb Rating:</label>{{t.rating}}
-                <label>Maturity Rating:</label>{{t.maturity}}
+                <p class="title-description">{{title.description}}</p>
+                <label>IMDb Rating:</label>{{title.rating}}
+                <label>Maturity Rating:</label>{{title.maturity}}
                 <br>
-                <label>Genre:</label>{{t.genre}}
-                <label>Country:</label>{{t.country}}
+                <label>Genre:</label>{{title.genre}}
+                <label>Country:</label>{{title.country}}
 
               </div>
             </div>
@@ -224,7 +224,7 @@ crossorigin=""></script>
           <img class='searchlogo' src="/static/images/bm-b-200.png" alt="">
         </div>
 </div>
-
+<!-- USER FORM -->
 <div class="w3-row-padding w3-center w3-padding-64 container" id="subscriber-map-section" style="max-width: 600px;">
   <h2>Be a Ripe Banana</h2>
   <h4>Join our bunch!</h4><br>
@@ -255,6 +255,7 @@ crossorigin=""></script>
       <input type="submit" value="submit" class="btn btn-primary">
     </form>
 
+<!-- Streaming Select-->
     <script>
       function init_servicelist() {
         var inputserv = d3.select('#inputServ')

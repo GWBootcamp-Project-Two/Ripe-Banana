@@ -82,12 +82,14 @@ def plots():
  
 ########################
 ## FIND A TITLE 
+#Look up by 'Post' (a request)
 @app.route("/api/lookup", methods=['POST'])
 def post_title():
     query = request.form['media_title']  
     df = lookup(query)
     return render_template("plots.html", titles=df.to_dict(orient='records'))
 
+#Look up - 
 @app.route("/api/lookup/<query>")
 def get_title(query):
     df = lookup(query)
@@ -98,12 +100,12 @@ def get_title(query):
     return resp
  
 def lookup(query): 
-    #MONGO CACHE CONN
+    #MONGO DB CONNECTION FOR CACHED TITLES
     client = pymongo.MongoClient(mongoConn) 
     db = client.shows_db
     collection = db.items
 
-  # TRY EXACT MATCH
+  # TRY EXACT MATCH : With Exact Regular Expression
     title_filter = {  
         "title": {"$regex": f'^{query}', "$options": 'i'}
     }
@@ -111,9 +113,9 @@ def lookup(query):
     dict_title = collection.find(title_filter, {'_id': False})
     df_title = pd.DataFrame(dict_title)
   
-    if len(df_title) < 1:  # NO EXACT MATCH
+    if len(df_title) < 1:  #IF NO EXACT MATCH
         title_filter = { 
-            # TRY LIKE * MATCH
+            # TRY LIKE * MATCH : Regular Expression w/broader search capacity
             "title": {"$regex": f'.*{query}.*', "$options": 'i'}
         }
         #FIND TITLE IN MONGO CACHE
@@ -125,28 +127,31 @@ def lookup(query):
         dict_title = scrape_title(query)  # SCRAPE TITLE 
         df_title = pd.DataFrame([dict_title])  # LOAD TITLE 
         collection.insert_one(dict_title)  # CACHE TITLE
+    df_title = df_title.drop_duplicates(subset='title', keep='last', inplace=False) #Drop any duplicate search results
+    try:# TO MAP SERVICE(from mySQL) INFO TO MONGO DATA
+        df_StreamingServices = get_dataframe_from_db('streamingservices') #calls function from RB_dbFunctions.py bring in mySQL services table data
 
-    try:# TO MAP SERVICE INFO TO MONGO DATA
-        df_StreamingServices = get_dataframe_from_db('streamingservices')
-      
+        #For Line 135: Had issues with columns returning with numbers instead of column names. May not need this line need to test      
         df_StreamingServices.rename(columns={0: 'Service_ID', 1: 'Service_Name',
                             2: 'Service_Type', 3: 'Service_Img', 4: 'Service_Url'}, inplace=True)
  
-        dic_titles = df_title.to_dict(orient='records')
- 
-        for title in dic_titles:
-            title['services_info'] = []
-            for service in title['services']:
+        dic_titles = df_title.to_dict(orient='records')#Turn data frame into dictionary
+
+        #Loop 
+        for title in dic_titles: #for each title in list
+            title['services_info'] = [] #create empty list for service info
+            for service in title['services']: #Loop through service for each title
                 try:
-                    df_services_info = df_StreamingServices.loc[df_StreamingServices['Service_Name'] == service]
-                    dict_services_info = df_services_info.to_dict(orient='records')[0]
+                    df_services_info = df_StreamingServices.loc[df_StreamingServices['Service_Name'] == service] #Filter to match up service name to record in mySQL services
+                    dict_services_info = df_services_info.to_dict(orient='records')[0] #turn data frame into dictionary
                     print(f'StreamingServices Record : {dict_services_info}')
-                    title['services_info'].append(dict_services_info)
+                    title['services_info'].append(dict_services_info) #appends dictionary to list
                     print(f'Scraped Service : {service} ')
                 except:
                     print(f'{service} meta not found')
                     #raise
-        df_title = pd.DataFrame(dic_titles) 
+        df_title = pd.DataFrame(dic_titles)
+
     except:
         print(f' Services Failed to Map') 
         #raise
