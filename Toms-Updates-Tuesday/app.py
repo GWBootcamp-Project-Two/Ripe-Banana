@@ -167,14 +167,14 @@ def create_user():
 ########################
 ## BAR CHART OF SERVICES
 @app.route("/services-viz/")
-def services_viz(): 
+def services_viz():
 
     client = pymongo.MongoClient(mongoConn)
     db = client.shows_db
     items = db.items.find()
     service_list = []
 
-    services = db.items.find({},{"_id":0, "services":1});
+    services = db.items.find({}, {"_id": 0, "services": 1})
     for service in services:
         if (len(list(service.values())) != 0):
             for opt in list(service.values())[0]:
@@ -184,7 +184,8 @@ def services_viz():
     service_df = pd.DataFrame.from_dict(service_dict, orient='index')
     sds = service_df.sort_values(by=0, ascending=False)
     sds.reset_index(inplace=True)
-    sds.rename(columns={'index':'service preferred by user', 0:'count'}, inplace=True)
+    sds.rename(
+        columns={'index': 'service preferred by user', 0: 'count'}, inplace=True)
 
     sds_short = sds[0:30]
     fig = px.bar(sds_short, x="service preferred by user", y="count")
@@ -194,6 +195,8 @@ def services_viz():
 
 ########################
 ## BAR CHART OF RECOMMENDATIONS
+
+
 @app.route("/recommendations-viz/")
 def recommendations_viz():
 
@@ -202,9 +205,9 @@ def recommendations_viz():
     items = db.items.find()
 
     rec_list = []
-    recs = db.items.find({},{"_id":0, "recommended":1});
+    recs = db.items.find({}, {"_id": 0, "recommended": 1})
     for rec in recs:
-        if (len(list(rec.values()))!= 0):
+        if (len(list(rec.values())) != 0):
             for opt in list(rec.values())[0]:
                 if isinstance(opt, str):
                     rec_list.append(opt)
@@ -213,7 +216,7 @@ def recommendations_viz():
     rec_df = pd.DataFrame.from_dict(rec_dict, orient='index')
     rds = rec_df.sort_values(by=0, ascending=False)
     rds.reset_index(inplace=True)
-    rds.rename(columns={'index':'recommendation', 0:'count'}, inplace=True)
+    rds.rename(columns={'index': 'recommendation', 0: 'count'}, inplace=True)
 
     rds_short = rds[0:30]
     fig = px.bar(rds_short, x="recommendation", y="count")
@@ -239,5 +242,5 @@ if __name__ == "__main__":
 #   `:     .,.    `'    .::... .      .::;::;'
 #     `..:;::;:..      ::;::;:;:;,    :;::;'
 #       "-:;::;:;:      ':;::;:''     ;.-'
-#           ""`---...________...---'"" 
+#           ""`---...________...---'""
 #------------------------------------------------

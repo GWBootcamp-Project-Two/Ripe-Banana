@@ -8,6 +8,9 @@ from flask import Flask, request, render_template, jsonify, make_response, redir
 import os 
 from RB_dbFunctions import insert_user, view_exists, get_dataframe_from_db
 from RB_Scrape import scrape_title
+from collections import Counter
+import plotly.express as px
+
 app = Flask(__name__)  
 
 # # # # # # # # # # # # # # # #   
@@ -48,7 +51,8 @@ def index():
         if query != '':
             df_titles = lookup(query)
             tab = 'search'
-    return render_template("index.html", titles=df_titles.to_dict(orient='records'), accessToken=accessToken, tab=tab)
+    streaming_services = get_dataframe_from_db('streamingservices')
+    return render_template("index.html", titles=df_titles.to_dict(orient='records'), streaming_services=streaming_services.to_dict(orient='records'), accessToken=accessToken, tab=tab)
 
 @app.route("/search")
 def search(): 
@@ -57,7 +61,6 @@ def search():
 @app.route("/maps")
 def maps():
     return render_template("maps.html", accessToken=accessToken)
-
 
 @app.route("/map")
 def map():
@@ -197,12 +200,68 @@ def create_user():
         except:
             print(f'create user fail')
         return redirect("/thankyou", code=302)
-
     return render_template("create_user.html")
 
-########################
-## SEE IF TABLE / VIEW IN DB
 
+########################
+## BAR CHART OF SERVICES
+@app.route("/services-viz/")
+def services_viz():
+
+    client = pymongo.MongoClient(mongoConn)
+    db = client.shows_db
+    items = db.items.find()
+    service_list = []
+
+    services = db.items.find({}, {"_id": 0, "services": 1})
+    for service in services:
+        if (len(list(service.values())) != 0):
+            for opt in list(service.values())[0]:
+                service_list.append(opt)
+
+    service_dict = dict(Counter(service_list))
+    service_df = pd.DataFrame.from_dict(service_dict, orient='index')
+    sds = service_df.sort_values(by=0, ascending=False)
+    sds.reset_index(inplace=True)
+    sds.rename(
+        columns={'index': 'service preferred by user', 0: 'count'}, inplace=True)
+
+    sds_short = sds[0:30]
+    fig = px.bar(sds_short, x="service preferred by user", y="count")
+    fig.write_html("templates/services-viz.html")
+
+    return render_template("services-viz.html")
+
+########################
+## BAR CHART OF RECOMMENDATIONS
+
+
+@app.route("/recommendations-viz/")
+def recommendations_viz():
+
+    client = pymongo.MongoClient(mongoConn)
+    db = client.shows_db
+    items = db.items.find()
+
+    rec_list = []
+    recs = db.items.find({}, {"_id": 0, "recommended": 1})
+    for rec in recs:
+        if (len(list(rec.values())) != 0):
+            for opt in list(rec.values())[0]:
+                if isinstance(opt, str):
+                    rec_list.append(opt)
+
+    rec_dict = dict(Counter(rec_list))
+    rec_df = pd.DataFrame.from_dict(rec_dict, orient='index')
+    rds = rec_df.sort_values(by=0, ascending=False)
+    rds.reset_index(inplace=True)
+    rds.rename(columns={'index': 'recommendation', 0: 'count'}, inplace=True)
+
+    rds_short = rds[0:30]
+    fig = px.bar(rds_short, x="recommendation", y="count")
+    fig.write_html("templates/recommendations-viz.html")
+
+    return render_template("recommendations-viz.html")
 
 
 # run the app in debug mode
@@ -222,5 +281,5 @@ if __name__ == "__main__":
 #   `:     .,.    `'    .::... .      .::;::;'
 #     `..:;::;:..      ::;::;:;:;,    :;::;'
 #       "-:;::;:;:      ':;::;:''     ;.-'
-#           ""`---...________...---'"" 
+#           ""`---...________...---'""
 #------------------------------------------------
