@@ -10,6 +10,7 @@ from RB_dbFunctions import insert_user, view_exists, get_dataframe_from_db
 from RB_Scrape import scrape_title
 from collections import Counter
 import plotly.express as px
+from plotly import graph_objects as go
 
 app = Flask(__name__)  
 
@@ -265,6 +266,95 @@ def recommendations_viz():
 
     return render_template("recommendations-viz.html")
 
+
+@app.route("/services-cost-viz")
+def services_cost_viz():
+   
+    fig = go.Figure()
+
+    fig.add_trace(go.Funnel(
+        name='Netflix',
+        y=["Premium", "Standard", "Basic"],
+        x=[17.99,  13.99, 8.99],
+        textinfo="value+percent initial"))
+
+    fig.add_trace(go.Funnel(
+        name='Hulu',
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[70.99, 11.99, 5.99],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Youtube Premium",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[64.99, 11.99, 0.00],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Sling TV",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[50.00, 35.00, 0.00],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Disney Plus",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[69.99, 6.99, 0.00],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Peacock TV",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[9.99, 4.99, 0.00],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Amazon Prime Video",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[12.99, 8.99, 6.99],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Crunchyroll",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[14.99, 9.99, 7.99],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+    fig.add_trace(go.Funnel(
+        name="Funimation",
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[99.99, 7.99, 5.99],
+        textposition="inside",
+        textinfo="value+percent previous"))
+
+
+    fig.add_trace(go.Funnel(
+        name='Apple One',
+        orientation="h",
+        y=["Premium", "Standard", "Basic"],
+        x=[29.95, 19.95, 4.99],
+        textposition="outside",
+        textinfo="value+percent total"))
+
+    #fig.show()
+    fig.write_html("templates/services_cost_viz.html")
+
+    return render_template("services_cost_viz.html")
 
 # run the app in debug mode
 if __name__ == "__main__":
