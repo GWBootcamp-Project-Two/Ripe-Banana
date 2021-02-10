@@ -78,7 +78,17 @@ h6{font-size:16px}
 /*h1,h2,h3,h4,h5,h6{font-family:Arial, Helvetica, sans-serif;
     font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}*/
 
-
+#plotly{
+  position:relative;
+}
+.vis {
+  position:relative;
+  min-height:90% !important;
+}
+#plotly div.plotly div.svg-container{ 
+   position:relative;
+    min-height:700px !important;
+}
 
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-image{max-width:100%;height:auto}img{vertical-align:middle}a{color:inherit}

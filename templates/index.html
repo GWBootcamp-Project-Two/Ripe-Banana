@@ -191,9 +191,11 @@ crossorigin=""></script>
 
                 <h4 class='recommendedTitle'>Recommended Titles:</h4>
                 <div>
-                  {% for reco in title.recommended[0:5] %}
-                    <div>{{reco}}</div>
-                  {% endfor %}
+                  {% if 'recommended' in title %}
+                    {% for reco in title.recommended[0:5] %}
+                      <div>{{reco}}</div>
+                    {% endfor %}
+                  {% endif %}
                 </div>
               </div>
               <div class="col-lg-6">
@@ -302,23 +304,26 @@ crossorigin=""></script>
 
 
 <!-- Plotly Row -->
-<div class="w3-row-padding w3-center w3-padding-64" id="plotly">
-
-  <h2>Visualizations</h2>
+<div class="w3-row-padding w3-center w3-padding-64" id="plotly"> 
+  <h2>Compare Services</h2>
   <h4>Need more help choosing a platform? Check out these interactive data visualizations!</h4><br>
-  <a href="/services-cost-viz">Redeat</a>
-  <button> <a href="/services-cost-viz" target=_blank>Service Cost</a></button>
-  <br>
-  {%include 'services_cost_viz.html'%}
-  <br>
-  
-  <button> <a href="/services-viz/" target=_blank>Services</a></button>
-  <br>
-  {%include 'services-viz.html'%}
-  </br></br>
-  <button> <a href="/recommendations-viz" target=_blank>User Recommendations</a></button>
-  <br>
-  {%include 'recommendations-viz.html'%}
+    <div class="vis"> 
+        {%include 'services_cost_viz.html'%}
+    </div>
+        <div class='row'>
+          <div class='col-lg-6'>
+            <div class="vis">
+              {%include 'services-viz.html'%}
+            </div>
+          </div>
+          <div class='col-lg-6'>
+            <div class="vis">
+              {%include 'recommendations-viz.html'%}
+            </div>
+          </div>
+        </div>
+
+
 </div> 
 
 
@@ -427,8 +432,17 @@ function openNav() {
 };
 </script>
 {% if tab == 'search' %}
-<script>location.href = '#{{tab}}';</script>
+  <script>location.href = '#{{tab}}';</script>
 {% endif %}
+
+<script>
+  $(document).ready(function () {
+    $(".main-svg").css({ 'height': '500px' });
+      $(".svg-container").css({'width':'99%'}); 
+      $(".main-svg").css({ 'transform': 'scale(1)' });
+    }); 
+</script>
+
 
 
 </body>

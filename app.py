@@ -6,6 +6,7 @@ import sqlalchemy
 from sqlalchemy import create_engine 
 from flask import Flask, request, render_template, jsonify, make_response, redirect
 import os 
+import re
 from RB_dbFunctions import insert_user, view_exists, get_dataframe_from_db
 from RB_Scrape import scrape_title
 from collections import Counter
@@ -109,6 +110,8 @@ def lookup(query):
     db = client.shows_db
     collection = db.items
 
+    query = re.sub(r'[^a-zA-Z0-9_\s]', '', query)
+    query
   # TRY EXACT MATCH : With Exact Regular Expression
     title_filter = {  
         "title": {"$regex": f'^{query}', "$options": 'i'}

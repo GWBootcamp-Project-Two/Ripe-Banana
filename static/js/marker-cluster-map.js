@@ -53,5 +53,5 @@ d3.json(url).then(function(response) {
 
   // Add our marker cluster layer to the map
   myMap.addLayer(markers);
-
+  myMap.scrollWheelZoom.disable();
 });
