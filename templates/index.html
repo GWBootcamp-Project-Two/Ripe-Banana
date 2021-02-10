@@ -233,6 +233,10 @@ crossorigin=""></script>
     <h2>Enter your information below!</h2>
     <form method="POST" action="/create_user" role="form" , name="form">
       <div class="form-group">
+        <label for="inputUserName">Please enter a User Name</label>
+        <input type="text" class="form-control" id="inputUserName" name="userName" placeholder="i.e., firstName_lastName">
+      </div>
+      <div class="form-group">
         <label for="inputAge">Please enter your age</label>
         <input type="text" class="form-control" id="inputAge" name="userAge" placeholder="i.e., 21">
       </div>
@@ -303,11 +307,14 @@ crossorigin=""></script>
   <h2>Visualizations</h2>
   <h4>Need more help choosing a platform? Check out these interactive data visualizations!</h4><br>
 
-  <button> <a href="/services-viz/">Services</a></button>
+  <button> <a href="/services-viz/" target=_blank>Services</a></button>
+  <br>
+  {%include 'services-viz.html'%}
   </br></br>
-  <button> <a href="/recommendations-viz">Recommendations</a></button>
-
-</div>
+  <button> <a href="/recommendations-viz" target=_blank>User Recommendations</a></button>
+  <br>
+  {%include 'recommendations-viz.html'%}
+</div> 
 
 <!-- Marker Cluster Row -->
 <div class="w3-row-padding w3-center w3-padding-64" id="subscriber-map-section" style="margin: auto;">

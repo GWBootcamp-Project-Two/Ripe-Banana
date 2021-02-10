@@ -138,7 +138,7 @@ def lookup(query):
         df_StreamingServices.rename(columns={0: 'Service_ID', 1: 'Service_Name',
                             2: 'Service_Type', 3: 'Service_Img', 4: 'Service_Url'}, inplace=True)
  
-        dic_titles = df_title.to_dict(orient='records')#Turn data frame into dictionary
+        dic_titles = df_title.to_dict(orient='records')#Turn title data frame into dictionary
 
         #Loop 
         for title in dic_titles: #for each title in list
@@ -147,7 +147,7 @@ def lookup(query):
                 try:
                     df_services_info = df_StreamingServices.loc[df_StreamingServices['Service_Name'] == service] #Filter to match up service name to record in mySQL services
                     dict_services_info = df_services_info.to_dict(orient='records')[0] #turn data frame into dictionary
-                    print(f'StreamingServices Record : {dict_services_info}')
+                    print(f'StreamingServices Record : {dict_services_info}') #debug
                     title['services_info'].append(dict_services_info) #appends dictionary to list
                     print(f'Scraped Service : {service} ')
                 except:
@@ -180,12 +180,13 @@ def get_db_view(db_view_name):
 def create_user(): 
     if request.method == "POST":
         try:
+            user_name = request.form["userName"]
             age = request.form["userAge"]
             zips = request.form["userZip"]
             frequency = request.form["userFreq"] 
             service = request.form.getlist('userServ')
             stream_dict = {
-                "User_Name":'',
+                "User_Name": user_name,
                 "First_Name":'',
                 "Last_Name":'',
                 'Age': age,
@@ -227,7 +228,8 @@ def services_viz():
         columns={'index': 'service preferred by user', 0: 'count'}, inplace=True)
 
     sds_short = sds[0:30]
-    fig = px.bar(sds_short, x="service preferred by user", y="count")
+    fig = px.bar(sds_short, x="service preferred by user",
+                 y="count", title="SERVICES USERS PREFER")
     fig.write_html("templates/services-viz.html")
 
     return render_template("services-viz.html")
@@ -258,7 +260,7 @@ def recommendations_viz():
     rds.rename(columns={'index': 'recommendation', 0: 'count'}, inplace=True)
 
     rds_short = rds[0:30]
-    fig = px.bar(rds_short, x="recommendation", y="count")
+    fig = px.bar(rds_short, x="recommendation", y="count", title="USER RECOMMENDATIONS")
     fig.write_html("templates/recommendations-viz.html")
 
     return render_template("recommendations-viz.html")
