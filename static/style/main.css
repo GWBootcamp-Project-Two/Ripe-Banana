@@ -76,7 +76,7 @@ h6{font-size:16px}
   background-image: url('/static/images/bg.jpg');
 }
 /*h1,h2,h3,h4,h5,h6{font-family:Arial, Helvetica, sans-serif;
-    font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}*/
+    font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}
 
 #plotly{
   position:relative;
@@ -89,6 +89,21 @@ h6{font-size:16px}
    position:relative;
     min-height:700px !important;
 }
+*/
+a.button {
+  background-color: #FEBE00;
+  box-shadow: 0 5px 0 darkred;
+  color: white;
+  padding: 1em 1.5em;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+} 
+a.button:active {
+  box-shadow: none;
+  top: 5px;
+}
+
 
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-image{max-width:100%;height:auto}img{vertical-align:middle}a{color:inherit}

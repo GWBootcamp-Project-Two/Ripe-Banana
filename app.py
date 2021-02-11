@@ -91,12 +91,16 @@ def plots():
 @app.route("/api/lookup", methods=['POST'])
 def post_title():
     query = request.form['media_title']  
+    if query == '': 
+        query="nothing"
     df = lookup(query)
-    return render_template("plots.html", titles=df.to_dict(orient='records'))
+    return render_template("index.html", titles=df.to_dict(orient='records'))
 
 #Look up - 
 @app.route("/api/lookup/<query>")
 def get_title(query):
+    if query == '':
+        query = "nothing"
     df = lookup(query)
     _json = df.to_json(orient='records', default_handler=str) 
     #print(_json) 
@@ -109,9 +113,9 @@ def lookup(query):
     client = pymongo.MongoClient(mongoConn) 
     db = client.shows_db
     collection = db.items
-
+    
     query = re.sub(r'[^a-zA-Z0-9_\s]', '', query)
-    query
+  
   # TRY EXACT MATCH : With Exact Regular Expression
     title_filter = {  
         "title": {"$regex": f'^{query}', "$options": 'i'}

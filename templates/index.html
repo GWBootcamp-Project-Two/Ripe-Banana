@@ -301,29 +301,20 @@ crossorigin=""></script>
     </h4>
   
 </div>
-
-
+ 
 <!-- Plotly Row -->
-<div class="w3-row-padding w3-center w3-padding-64" id="plotly"> 
-  <h2>Compare Services</h2>
+<div class="w3-row-padding w3-center w3-padding-64 container" id="plotly"> 
+
+    <h2>Compare Services</h2>
+
   <h4>Need more help choosing a platform? Check out these interactive data visualizations!</h4><br>
-    <div class="vis"> 
-        {%include 'services_cost_viz.html'%}
-    </div>
-        <div class='row'>
-          <div class='col-lg-6'>
-            <div class="vis">
-              {%include 'services-viz.html'%}
-            </div>
-          </div>
-          <div class='col-lg-6'>
-            <div class="vis">
-              {%include 'recommendations-viz.html'%}
-            </div>
-          </div>
-        </div>
 
-
+  <div class="row">
+    <div class="col-lg-4"><a target="_blank" class="button" href="/recommendations-viz">User Recommendations</a></div>
+    <div class="col-lg-4"><a target="_blank" class="button" href="/services-cost-viz">Services Cost</a></div>
+    <div class="col-lg-4"><a target="_blank" class="button" href="/services-viz">Services</a></div>
+  </div>
+  <br><br>
 </div> 
 
 

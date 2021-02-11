@@ -52,16 +52,51 @@
     <script src="{{url_for('static', filename='js/config.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
 
-
+<style>
+    .navbar-brand{
+        background-color:#FEBE00;
+    }
+    .navbar{
+        padding:0px;
+    }
+    .navbar{
+        background-color:#33200c;
+    }
+    .navbar-dark .navbar-nav .nav-link{
+         color:#f8f8f8;
+    }
+    .navbar-brand img{
+        max-height: 55px;
+        height:100%;
+        margin :0em 1em;
+    }
+</style>
 </head>
 
 <body id="myPage">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><img src="static/images/rb-logo.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button> 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"> 
+            <li class="nav-item"> <a class="nav-link" href="/#search">Search</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#streaming">Services Comparison</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#plotly">Visualizations</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#subscriber-map-section">Subscribe</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#theatre">Theatres in DC</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#team">Meet the Team</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#review">Reviews</a> </li> 
+        </ul> 
+    </div>
+</nav>
 
  
- 
     <div class="w3-container w3-padding-64 w3-center" id="team">
-        <h1>Thank You!</h1>
-        <a href="/">Click here to go Home</a>
+        <a href="/">Click here to Find Your Streaming Service!</a>
+        <h1>Thank You!</h1> 
         <br>
         <img src="static/images/logo.jpg" style="width:600px;height:600px;">
     </div>
