@@ -98,6 +98,8 @@ a.button {
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
+  margin: 2em;
+  display: block;
 } 
 a.button:active {
   box-shadow: none;

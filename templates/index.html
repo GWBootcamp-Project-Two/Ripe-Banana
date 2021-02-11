@@ -290,7 +290,7 @@ crossorigin=""></script>
   </div>
 
 </div>
-<!-- Streaming Comparison Row -->
+<!-- Plotly Services Cost Comparison Row -->
 <div class="w3-container w3-padding-64 w3-center" id="streaming">
     <h2>Streaming Platform Comparison</h2>
     <h4> Which streaming platform is right for you? Review the data below for the top 20 streaming platforms based on the following factors:
@@ -299,27 +299,33 @@ crossorigin=""></script>
       <li>Device Limit</li>
       <li>Number of User Profiles</li>
     </h4>
-  
+    <br>
+      <div class="row">
+
+        <div class="col-lg-12"><a target="_blank" class="button" href="/services-cost-viz">CLICK for Closer Look</a>
+          {% include 'services_cost_viz.html'%}
+        </div>
 </div>
- 
-<!-- Plotly Row -->
-<div class="w3-row-padding w3-center w3-padding-64 container" id="plotly"> 
 
-    <h2>Compare Services</h2>
-
+<!-- Plotly Recommendation Row -->
+<div class="w3-row-padding w3-center w3-padding-64 container-fluid" id="plotly"> 
   <h4>Need more help choosing a platform? Check out these interactive data visualizations!</h4><br>
-
   <div class="row">
-    <div class="col-lg-4"><a target="_blank" class="button" href="/recommendations-viz">User Recommendations</a></div>
-    <div class="col-lg-4"><a target="_blank" class="button" href="/services-cost-viz">Services Cost</a></div>
-    <div class="col-lg-4"><a target="_blank" class="button" href="/services-viz">Services</a></div>
+    <div class="col-lg-12"><a target="_blank" class="button" href="/recommendations-viz">CLICK for Closer Look</a>
+    </div>
+  <iframe src="/recommendations-viz/" height="700px" width="100%" frameborder="0"></iframe>
   </div>
-  <br><br>
+<br>
+<!-- Plotly Services Row -->
+  <h4>Compare Services</h4><br>
+  <div class='row'>
+    <div class="col-lg-12"><a target="_blank" class="button" href="/services-viz">CLICK for Closer Look</a>
+    </div>
+  <iframe src="/services-viz" height="500px" width="100%" frameborder="0"></iframe>
+  </div>
 
-    {% include 'services_cost_viz.html'%}
-    {% include 'recommendations-viz.html'%}
-    {% include 'services-viz.html'%}
-</div> 
+</div>
+
 
 
 <!-- Marker Cluster Row -->
