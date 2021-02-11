@@ -1,6 +1,6 @@
 Welcome to RIPE BANANAS
 
-bb1.jpg
+https://github.com/GWBootcamp-Project-Two/Ripe-Banana/blob/master/images/Screen%20Shot%202021-02-10%20at%2010.48.17%20PM.png
 
 ## Project Goal
 
