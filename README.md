@@ -1,4 +1,4 @@
-Welcome to RIPE BANANAS
+## Welcome to RIPE BANANAS
 
 ![bb1](https://user-images.githubusercontent.com/71414243/107602050-6bd24000-6bf6-11eb-9485-caf55b6e0d92.jpg)
 
@@ -15,12 +15,12 @@ Is there an application where we can find extensive comparison data on different
 Answer: 
 
 RIPEBANANAS! 
-/Users/Taslemun/Downloads/rb-banana-branding/loho-v-y.png
+![loho-v-y](https://user-images.githubusercontent.com/71414243/107602159-a63bdd00-6bf6-11eb-9066-48a76d7bc833.png)
+
 
 # Process: 
 
-/Users/Taslemun/Downloads/image.png
-
+![image](https://user-images.githubusercontent.com/71414243/107602176-b5228f80-6bf6-11eb-9d98-398f02feefce.png)
 
 # Extraction of the Data
 
@@ -30,17 +30,18 @@ Our data is sourced from Reelgood.com, various streaming service websites and we
 
 To transform the data we scraped, we cleaned and transformed it by using Python Jupyter Notebook and made various comparison visualizations using pandas. 
 
-/Users/Taslemun/Desktop/Screen Shot 2021-02-10 at 10.48.17 PM.png
+<img width="1119" alt="Screen Shot 2021-02-10 at 10 48 17 PM" src="https://user-images.githubusercontent.com/71414243/107602225-e307d400-6bf6-11eb-9ea4-8f4e9771f71e.png">
 
-/Users/Taslemun/Desktop/Screen Shot 2021-02-10 at 10.49.10 PM.png
+<img width="1397" alt="Screen Shot 2021-02-10 at 10 49 10 PM" src="https://user-images.githubusercontent.com/71414243/107602282-f9159480-6bf6-11eb-899b-a70c185ff87e.png">
 
-/Users/Taslemun/Desktop/Screen Shot 2021-02-10 at 10.49.32 PM.png
+<img width="1381" alt="Screen Shot 2021-02-10 at 10 49 32 PM" src="https://user-images.githubusercontent.com/71414243/107602325-15b1cc80-6bf7-11eb-9f95-584b75e9cb61.png">
 
 We used Leaflet and GEO mapping on JavaScript 
 
-/Users/Taslemun/Desktop/Screen Shot 2021-02-10 at 10.50.04 PM.png
+<img width="854" alt="Screen Shot 2021-02-10 at 10 50 04 PM" src="https://user-images.githubusercontent.com/71414243/107602345-28c49c80-6bf7-11eb-9b51-d6020162a9d5.png">
 
-/Users/Taslemun/Desktop/Screen Shot 2021-02-10 at 10.50.18 PM.png
+<img width="854" alt="Screen Shot 2021-02-10 at 10 50 18 PM" src="https://user-images.githubusercontent.com/71414243/107602359-367a2200-6bf7-11eb-8115-e1d291679437.png">
+
 
 
 ### Load 
