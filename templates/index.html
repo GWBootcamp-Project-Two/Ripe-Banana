@@ -65,6 +65,17 @@ crossorigin=""></script>
       <li class="nav-item"> <a class="nav-link" href="#theatre">Theatres in DC</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#team">Meet the Team</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#review">Reviews</a> </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for service in streaming_services[0:17] %}
+            <a class="dropdown-item" href="http://www.{{service.Service_URL}}" target="_blank">{{service.Service_Name}}</a>
+            {% endfor %}
+        </div>
+      </li>
     </ul>
   </div>
 </nav>

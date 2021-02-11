@@ -53,7 +53,7 @@ def index():
         if query != '':
             df_titles = lookup(query)
             tab = 'search'
-    streaming_services = get_dataframe_from_db('streamingservices')
+    streaming_services = get_dataframe_from_db('VW_ServiceByPopularity')
     return render_template("index.html", titles=df_titles.to_dict(orient='records'), streaming_services=streaming_services.to_dict(orient='records'), accessToken=accessToken, tab=tab)
 
 @app.route("/search")
