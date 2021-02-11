@@ -75,6 +75,23 @@ h6{font-size:16px}
 #search{
   background-image: url('/static/images/bg.jpg');
 }
+.navbar-brand{
+    background-color:#FEBE00;
+}
+.navbar{
+    padding:0px;
+}
+.navbar{
+    background-color:#33200c;
+}
+.navbar-dark .navbar-nav .nav-link{
+      color:#f8f8f8;
+}
+.navbar-brand img{
+    max-height: 55px;
+    height:100%;
+    margin :0em 1em;
+}
 /*h1,h2,h3,h4,h5,h6{font-family:Arial, Helvetica, sans-serif;
     font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}
 

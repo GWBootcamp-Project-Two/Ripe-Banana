@@ -50,97 +50,33 @@ crossorigin=""></script>
 
 </head>
 <body id="myPage">
-
-<!-- Sidebar on click
-<nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
-    <i class="fa fa-remove"></i>
-  </a>
-  <a href="#" class="w3-bar-item w3-button">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 4</a>
-  <a href="#" class="w3-bar-item w3-button">Link 5</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/"><img src="static/images/rb-logo.png" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"> <a class="nav-link" href="/#search">Search</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#streaming">Services Comparison</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#plotly">Visualizations</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#subscriber-map-section">Subscribe</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#theatre">Theatres in DC</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#team">Meet the Team</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#review">Reviews</a> </li>
+    </ul>
+  </div>
 </nav>
-
-   -->
-
-<!-- Navbar -->
-<div class="w3-top">
- <div class="w3-bar w3-theme-d2 w3-left-align">
-  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-yellow"><i class="fa fa-home w3-margin-right"></i><img src="static/images/rb-logo.png" style='max-height: 25px;' alt=""></a>
-  <a href="#search" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Search</a>
-  <a href="#streaming" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Streaming Services Comparison</a>
-  <a href="#plotly" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Visualizations</a>
-  <a href="#subscriber-map-section" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Subscribe</a>
-  <a href="#theatre" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Theatres in DC</a>
-  <a href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Meet the Team</a>
-  <a href="#review" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Reviews</a>
-  <div class="w3-dropdown-hover w3-hide-small">
-    <button class="w3-button" title="Notifications">Streaming Platforms <i class="fa fa-caret-down"></i></button>     
-    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-      <a href="https://www.netflix.com/" target="_blank" class="w3-bar-item w3-button">Netflix</a>
-      <a href="https://www.hulu.com/" target="_blank" class="w3-bar-item w3-button">Hulu</a>
-      <a href="https://www.primevideo.com/" target="_blank" class="w3-bar-item w3-button">Prime Video</a>
-      <a href="https://www.hbomax.com/" target="_blank" class="w3-bar-item w3-button">HBO Max</a>
-      <a href="https://www.disneyplus.com/" target="_blank" class="w3-bar-item w3-button">Disney Plus</a>
- 
-    </div>
-  </div>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-yellow" title="Search"><i class="fa fa-search"></i></a>
- </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
-    <a href="#search" class="w3-bar-item w3-button">Search</a>
-    <a href="#streaming" class="w3-bar-item w3-button">Streaming Services Comparison</a>
-    <a href="#plotly" class="w3-bar-item w3-button">Visualizations</a>
-    <a href="#subscriber-map-section" class="w3-bar-item w3-button">Subscribe</a>
-    <a href="#theatre" class="w3-bar-item w3-button">Theatres in DC</a>
-    <a href="#team" class="w3-bar-item w3-button">Meet the Team</a>
-    <a href="#reviews" class="w3-bar-item w3-button">Reviews</a>
-    <a href="#" class="w3-bar-item w3-button">Search</a>
-  </div>
-</div>
 
 <!-- Image Header -->
 <div class="w3-display-container w3-animate-opacity">
-  <style>
-    .mySlides {display:none;}
-    </style>
-    </head>
-    
-    <body>
-    <!--
-    <div class="w3-content w3-section" style="max-width:800px">
-      <img class="mySlides" src="static/images/landing1.jpg" style="width:100%">
-      <img class="mySlides" src="static/images/landing2.jpg" style="width:100%">
-      <img class="mySlides" src="static/images/landing3.jpg" style="width:100%">
-      <img class="mySlides" src="static/images/landing4.jpg" style="width:100%">
-      <img class="mySlides" src="static/images/disney.jpg" style="width:100%">
-    </div>
-  -->
+
+
     <div class='jumbotron'>
       <img class="banner" src="static/images/bb1.jpg" style="width:100%">
     </div>
-    <script>
-    var myIndex = 0;
-    carousel();
-    
-    function carousel() {
-      return;
-      var i;
-      var x = document.getElementsByClassName("mySlides");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";  
-      }
-      myIndex++;
-      if (myIndex > x.length) {myIndex = 1}    
-      x[myIndex-1].style.display = "block";  
-      setTimeout(carousel, 2000); // Change image every 2 seconds
-    }
-    </script>
+  
   <div class="w3-container w3-display-bottomleft w3-margin-bottom">  
     <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-xlarge w3-theme w3-hover-ywllow" title="Surprise!">Click here for a surprise!</button>
   </div>
