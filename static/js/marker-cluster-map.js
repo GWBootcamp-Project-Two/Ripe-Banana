@@ -21,10 +21,10 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // I imported a zip-code-to-latlng file so that we can make the maps dynamically
 
 //console.log('trying to open file');
-url = './static/data/subscriber.json'
+//url = './static/data/subscriber.json'
 
 // Grab the data with d3
-d3.json(url).then(function(response) {
+d3.json("/subscriber-data/").then(function(response) {
 
   //console.log('in d3.json')
 
@@ -46,7 +46,7 @@ d3.json(url).then(function(response) {
     // Add a new marker to the cluster group and bind a pop-up
     if(lat && lng) {
       markers.addLayer(L.marker([lat, lng])
-        .bindPopup("<h1 style='text-align:center;'>" + response[i].username + "</h1> <hr> <h2 style='text-align:center;'>" + response[i].services + "</h2>"));
+        .bindPopup("<h1 style='text-align:center;'>" + response[i].username + "</h1> <hr> <h2 style='text-align:center;'>" + response[i].services + "</h2>"), {maxWidth:"auto"});
     }
 
   }

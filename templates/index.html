@@ -44,6 +44,9 @@ crossorigin=""></script>
 <script>
   API_KEY = '{{accessToken}}';
 </script>
+ 
+ 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="{{url_for('static', filename='js/app.js')}}" defer></script> 
 <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
 </head>
@@ -224,14 +227,34 @@ crossorigin=""></script>
 </div>
 <!-- Plotly Services Cost Comparison Row -->
 <div class="w3-container w3-padding-64 w3-center" id="streaming">
+
+    <div class="container"> 
+      <div class="row">
+          <div class=" col-lg-12">
+              <img src="/static/images/rr-300.png">
+          </div>
+          <div class="col-md-6">
+              <div class="well">
+                  <h5>Streaming Services:</h5>
+                  <select id="selDataset" onchange="optionChanged(this.value)"></select>
+              </div>
+              <div class="panel panel-primary"> 
+                  <div id="sample-metadata" class="panel-body"></div>
+              </div>
+          </div> 
+          <div class="col-md-6">
+              <div id="gauge"></div>
+          </div>
+      </div> 
+  </div>
+
     <h2>Keep your money as green as your unriped bananas!</h2>
     <br>
-      <div class="row">
-
+      <div class="row"> 
         <div class="col-lg-12"><a target="_blank" class="button" href="/services-cost-viz">CLICK for Closer Look</a>
           {% include 'services_cost_viz.html'%}
         </div>
-</div>
+    </div>
 
 <!-- Plotly Recommendation Row -->
 <div class="w3-row-padding w3-center w3-padding-64 container-fluid" id="plotly"> 
@@ -370,7 +393,7 @@ function openNav() {
       $(".main-svg").css({ 'transform': 'scale(1)' });
     }); 
 </script>
-
+<script src="{{url_for('static', filename='js/ripe_rating.js')}}" defer></script>
 
 
 </body>

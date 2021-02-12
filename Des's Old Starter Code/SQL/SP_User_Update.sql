@@ -1,7 +1,0 @@
-CREATE DEFINER=`admin`@`%` PROCEDURE `sp_UserUpdate`(
-	USER_ID INT,
-	CRUD_MODE VARCHAR(4000)
-) 
-BEGIN    
-	SELECT * FROM user_profile;
-END

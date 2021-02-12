@@ -214,6 +214,100 @@ def create_user():
 
 
 ########################
+## SERVICES DATA ENDPOINT
+@app.route("/services-data/")
+def services_data(): 
+
+    client = pymongo.MongoClient(mongoConn)
+    db = client.shows_db
+    items = db.items.find()
+    service_list = []
+
+    services = db.items.find({},{"_id":0, "services":1})
+    for service in services:
+        if (len(list(service.values())) != 0):
+            for opt in list(service.values())[0]:
+                service_list.append(opt)
+
+    service_dict = dict(Counter(service_list))
+    service_df = pd.DataFrame.from_dict(service_dict, orient='index')
+    sds = service_df.sort_values(by=0, ascending=False)
+    sds.reset_index(inplace=True)
+    sds.rename(columns={'index':'service preferred by user', 0:'count'}, inplace=True)
+    sds.drop(sds.loc[sds['service preferred by user']=='Rent or Buy'].index, inplace=True)
+
+    sds_short = sds[0:30]
+    
+    sds_short_json = sds_short.to_json(orient='records')
+
+    return sds_short_json
+
+########################
+## RECOMMENDATIONS DATA ENDPOINT
+@app.route("/recommendations-data/")
+def recommendations_data():
+
+    client = pymongo.MongoClient(mongoConn)
+    db = client.shows_db
+    items = db.items.find()
+
+    rec_list = []
+    recs = db.items.find({},{"_id":0, "recommended":1});
+    for rec in recs:
+        if (len(list(rec.values()))!= 0):
+            for opt in list(rec.values())[0]:
+                if isinstance(opt, str):
+                    rec_list.append(opt)
+
+    rec_dict = dict(Counter(rec_list))
+    rec_df = pd.DataFrame.from_dict(rec_dict, orient='index')
+    rds = rec_df.sort_values(by=0, ascending=False)
+    rds.reset_index(inplace=True)
+    rds.rename(columns={'index':'recommendation', 0:'count'}, inplace=True)
+
+    rds_short = rds[0:30]
+
+    rds_short_json = rds_short.to_json(orient='records')
+
+    return rds_short_json
+
+########################
+## SUBSCRIBER DATA ENDPOINT
+@app.route("/subscriber-data/")
+def subscriber_data():
+
+    mySQLConn = ''
+    pymysql.install_as_MySQLdb() 
+    engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_endpoint}:{remote_db_port}/{remote_db_name}")
+    conn = engine.connect()
+
+    sql = f''' 
+
+        SELECT 
+            p.User_Name AS username,
+            t.Service_Name as services,
+            z.Latitude AS lat,
+            z.Longitude AS lng
+        FROM
+            user_profile p
+        INNER JOIN user_profile_services s
+            ON s.User_ID = p.User_ID
+        INNER JOIN streamingservices t
+            ON t.Service_ID = s.Service_ID
+        INNER JOIN zips z
+            ON z.Zip = p.Zip_Code
+        
+    '''
+    df = pd.read_sql(sql, con=conn)
+    user_services = df.groupby(['username'])['services'].apply(', '.join).to_frame()
+    user_location = df.drop_duplicates(subset=['username'])[['username', 'lat','lng']]
+    user_data = pd.merge(user_location, user_services, how='left', on='username')
+
+    user_data_json = user_data.to_json(orient='records')
+
+    return user_data_json
+
+########################
 ## BAR CHART OF SERVICES
 @app.route("/services-viz/")
 def services_viz():
@@ -235,6 +329,7 @@ def services_viz():
     sds.reset_index(inplace=True)
     sds.rename(
         columns={'index': 'service preferred by user', 0: 'count'}, inplace=True)
+    sds.drop(sds.loc[sds['service preferred by user']=='Rent or Buy'].index, inplace=True)
 
     sds_short = sds[0:30]
     fig = px.bar(sds_short, x="service preferred by user",
