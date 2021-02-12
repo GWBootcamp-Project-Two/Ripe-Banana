@@ -363,6 +363,16 @@ def services_cost_viz():
 
     return render_template("services_cost_viz.html")
 
+
+@app.route("/ripe-rating-viz")
+def ripe_rating_viz():
+
+
+    return render_template("ripe_rating_viz.html")
+
+
+
+
 # run the app in debug mode
 if __name__ == "__main__":
     app.secret_key = os.urandom(24)
