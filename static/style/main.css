@@ -92,6 +92,20 @@ h6{font-size:16px}
     height:100%;
     margin :0em 1em;
 }
+.Service_Img{
+  max-width:125px;
+}
+#selDataset{
+  font-size: 2em;
+  padding: .25em 1em;
+}
+#sample-metadata{
+  text-align:left;
+  padding:2em 0em ;
+}
+#sample-metadata h6{
+  text-align:12.5px !important;
+}
 /*h1,h2,h3,h4,h5,h6{font-family:Arial, Helvetica, sans-serif;
     font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}
 

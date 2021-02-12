@@ -1,28 +1,39 @@
-d3.json("/api/view/VW_ServiceByPopularity").then((data) => {
-    d3.select('select').append('option').attr(
-        'value', '').text(' -- Select A Service -- ')
+d3.json("/api/view/VW_ServiceByPopularity").then((data) => { 
+    d3.select('#selDataset').append('option').attr('value', '').text(' -- Select A Service -- ')
     data.forEach(element => {
-        d3.select('select').append('option').attr(
-            'value', element.Service_ID).text(element.Service_Name)
+        d3.select('#selDataset').append('option').attr( 'value', element.Service_ID).text(element.Service_Name)
     })
 })
 
 getServiceData()
 function getServiceData() {
     d3.json("/api/view/streamingservices").then((data) => {
-        var Service_ID = d3.select('select').property('value');
-        if(Service_ID == '') return;
 
-    let service = data.find(service => service.Service_ID == Service_ID)
-    // console.log(service)
+     
+        var Service_ID = d3.select('#selDataset').property('value');
+        if(Service_ID == '') {
+            Service_ID = 34;
+        } 
 
-    d3.select('.panel-body').html('')
-    Object.entries(service).forEach(([key, val]) => {
-        d3.select('.panel-body').append('h6').text(`${key.toUpperCase()}: ${val}`)
+        let service = data.find(service => service.Service_ID == Service_ID)
+        // console.log(service)
+
+        d3.select('.panel-body').html('')
+        Object.entries(service).forEach(([key, val]) => {
+        
+            if(key == 'Service_Img'){
+                d3.select('.panel-body').append('img').attr('src', val).attr('class', 'Service_Img');
+            }else if(key =='Service_URL')   {  
+                d3.select('.panel-body').append('a').attr('href', 'http://www.' + val).attr('target', '_blank').text(val);
+            }
+            else{
+                d3.select('.panel-body').append('h6').text(`${key.toUpperCase()}: ${val}`)
+            } 
+        })
+        showData(service)
     })
-    showData(service)
-})
-    }
+}
+//
 
 function showData(service) {
 
@@ -33,7 +44,7 @@ function showData(service) {
             title: { text: "Ripe Rating " + service.Service_Name },
             type: "indicator",
             mode: "gauge+number+delta",
-            delta: { reference: 5 },
+          
             gauge: {
                 axis: { range: [null, 10] },
                 steps: [
@@ -57,5 +68,5 @@ function showData(service) {
     Plotly.newPlot('gauge', gaugeData, layout)
 }
 function optionChanged() {
-    getServiceData()
+    getServiceData();
 }
