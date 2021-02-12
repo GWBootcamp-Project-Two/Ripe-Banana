@@ -70,7 +70,8 @@ def map():
 
 @app.route("/thankyou")
 def thankyou():
-    return render_template("thankyou.html")
+    streaming_services = get_dataframe_from_db('VW_ServiceByPopularity')
+    return render_template("thankyou.html", streaming_services=streaming_services.to_dict(orient='records'))
 
 
 @app.route("/lookup_result", methods=['GET', 'POST'])
@@ -359,7 +360,7 @@ def services_cost_viz():
         textinfo="value+percent total"))
 
     #fig.show()
-    fig.write_html("templates/services_cost_viz.html")
+    #fig.write_html("templates/services_cost_viz.html")
 
     return render_template("services_cost_viz.html")
 

@@ -74,9 +74,11 @@ h6{font-size:16px}
 
 #search{
   background-image: url('/static/images/bg.jpg');
+  background-size: cover;
 }
 .navbar-brand{
     background-color:#FEBE00;
+    
 }
 .navbar{
     padding:0px;
@@ -117,6 +119,7 @@ a.button {
   text-transform: uppercase;
   margin: 2em;
   display: block;
+  
 } 
 a.button:active {
   box-shadow: none;

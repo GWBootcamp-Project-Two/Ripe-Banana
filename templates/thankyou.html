@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
     <link rel="stylesheet" type="text/css"
         href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style/titles.css')}}" media="screen">
 
     <!-- D3 -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
@@ -74,22 +75,35 @@
 </head>
 
 <body id="myPage">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="/"><img src="static/images/rb-logo.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button> 
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"> 
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item"> <a class="nav-link" href="/#search">Search</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#streaming">Services Comparison</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#plotly">Visualizations</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#subscriber-map-section">Subscribe</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#theatre">Theatres in DC</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#team">Meet the Team</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#review">Reviews</a> </li> 
-        </ul> 
+            <li class="nav-item"> <a class="nav-link" href="/#subscribe">Subscribe</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#streaming">Costs</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#plotly">Recommendations</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#subscriber-map-section">Subscriber Map</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#theatre">Theatres in DC</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#team">Meet the Team</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#review">Reviews</a> </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Services
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for service in streaming_services[0:17] %}
+                    <a class="dropdown-item" href="http://www.{{service.Service_URL}}"
+                        target="_blank">{{service.Service_Name}}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
 
