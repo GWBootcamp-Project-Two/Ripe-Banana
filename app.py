@@ -242,6 +242,35 @@ def services_data():
     return sds_short_json
 
 ########################
+## RECOMMENDATIONS DATA ENDPOINT
+@app.route("/recommendations-data/")
+def recommendations_data():
+
+    client = pymongo.MongoClient(mongoConn)
+    db = client.shows_db
+    items = db.items.find()
+
+    rec_list = []
+    recs = db.items.find({},{"_id":0, "recommended":1});
+    for rec in recs:
+        if (len(list(rec.values()))!= 0):
+            for opt in list(rec.values())[0]:
+                if isinstance(opt, str):
+                    rec_list.append(opt)
+
+    rec_dict = dict(Counter(rec_list))
+    rec_df = pd.DataFrame.from_dict(rec_dict, orient='index')
+    rds = rec_df.sort_values(by=0, ascending=False)
+    rds.reset_index(inplace=True)
+    rds.rename(columns={'index':'recommendation', 0:'count'}, inplace=True)
+
+    rds_short = rds[0:30]
+
+    rds_short_json = rds_short.to_json(orient='records')
+
+    return rds_short_json
+
+########################
 ## SUBSCRIBER DATA ENDPOINT
 @app.route("/subscriber-data/")
 def subscriber_data():

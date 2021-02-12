@@ -46,7 +46,7 @@ d3.json("/subscriber-data/").then(function(response) {
     // Add a new marker to the cluster group and bind a pop-up
     if(lat && lng) {
       markers.addLayer(L.marker([lat, lng])
-        .bindPopup("<h1 style='text-align:center;'>" + response[i].username + "</h1> <hr> <h2 style='text-align:center;'>" + response[i].services + "</h2>"));
+        .bindPopup("<h1 style='text-align:center;'>" + response[i].username + "</h1> <hr> <h2 style='text-align:center;'>" + response[i].services + "</h2>"), {maxWidth:"auto"});
     }
 
   }
