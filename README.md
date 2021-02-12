@@ -1,7 +1,7 @@
 ## Welcome to RIPE BANANAS
 
 ![bb1](https://user-images.githubusercontent.com/71414243/107602050-6bd24000-6bf6-11eb-9485-caf55b6e0d92.jpg)
-https://Ripe-Banana-6.herokuapp.com/
+https://Ripe-Bananas-6.herokuapp.com/
 
 ## Project Goal
 
@@ -54,7 +54,7 @@ Python Flask powered a restful API were used to deploy the data into the web, an
 
 The app is deployed in Heroku in order to access the page click the following link 
 
-https://Ripe-Banana-6.herokuapp.com/
+https://Ripe-Bananas-6.herokuapp.com/
 
 ## Post - Mortem
 
