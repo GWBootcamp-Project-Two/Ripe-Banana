@@ -27,8 +27,6 @@ RIPEBANANAS!
 
 Our data is sourced from Reelgood.com, various streaming service websites and we got user review analysis extracted from Nielsen Insights and derived 10,000 synthetic data using the analysis provided to analyze various components surround streaming services and their users based on, gender, age, genre, titles of media and much more. 
 
-### Transform
-
 To transform the data we scraped, we cleaned and transformed it by using Python Jupyter Notebook and made various comparison visualizations using pandas. 
 
 <img width="1318" alt="Screen Shot 2021-02-12 at 7 44 13 PM" src="https://user-images.githubusercontent.com/71414243/107836339-c5f41200-6d6a-11eb-8462-09388e909bec.png">
