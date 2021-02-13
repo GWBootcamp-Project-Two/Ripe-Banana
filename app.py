@@ -333,7 +333,7 @@ def services_viz():
 
     sds_short = sds[0:30]
     fig = px.bar(sds_short, x="service preferred by user",
-                 y="count", title="SERVICES USERS PREFER")
+                 y="count", color="count", title="SERVICES USERS PREFER")
     fig.write_html("templates/services-viz.html")
 
     return render_template("services-viz.html")
@@ -364,7 +364,7 @@ def recommendations_viz():
     rds.rename(columns={'index': 'recommendation', 0: 'count'}, inplace=True)
 
     rds_short = rds[0:30]
-    fig = px.bar(rds_short, x="recommendation", y="count", title="USER RECOMMENDATIONS")
+    fig = px.bar(rds_short, x="recommendation", y="count", color="count", title="USER RECOMMENDATIONS")
     fig.write_html("templates/recommendations-viz.html")
 
     return render_template("recommendations-viz.html")
