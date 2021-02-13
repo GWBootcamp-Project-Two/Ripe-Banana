@@ -49,6 +49,8 @@ crossorigin=""></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="{{url_for('static', filename='js/app.js')}}" defer></script> 
 <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
+<script src="{{url_for('static', filename='js/preferred-services.js')}}" defer></script> 
+<script src="{{url_for('static', filename='js/recommended-shows.js')}}" defer></script> 
 </head>
 
 
@@ -275,6 +277,34 @@ crossorigin=""></script>
   </div>
 
 </div>
+
+<!-- 
+We could implement the graphics using plotly, instead of
+writing the images into html files and then loading html files
+into frames.  However, we found the html / frame method more robust.
+We are includeding the following commented out code, along with the
+/static/js files names "preferred-services.js" and "recommended-shows.js",
+as an alternative implemenation of the bar charts that uses plotly directly.
+
+We prefer the html method b/c writing and reading a large json file, which
+the plotly method requires, is slower than using python to make the graphics
+and then loading them. 
+
+
+<div class="w3-row-padding w3-center w3-padding-64" id="plotly-js">
+    <h2>Visualizations</h2>
+    <h4>Want some show recommendations?  Check out these shows other users like!</h4><br>
+    <div id='recommended-shows'></div>
+</div>
+
+
+<div class="w3-row-padding w3-center w3-padding-64" id="plotly-js">
+  <h2>Visualizations</h2>
+  <h4>Need more help choosing a platform? Check out these platforms popular with other users!</h4><br>
+  <div id='preferred-services'></div>
+</div>
+
+-->
 
 
 
