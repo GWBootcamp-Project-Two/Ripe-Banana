@@ -29,6 +29,7 @@ Our data is sourced from Reelgood.com, various streaming service websites and we
 
 To transform the data we scraped, we cleaned and transformed it by using Python Jupyter Notebook and made various comparison visualizations using pandas. 
 
+## Visualizations  
 <img width="1318" alt="Screen Shot 2021-02-12 at 7 44 13 PM" src="https://user-images.githubusercontent.com/71414243/107836339-c5f41200-6d6a-11eb-8462-09388e909bec.png">
 
 <img width="1372" alt="Screen Shot 2021-02-12 at 10 22 29 PM" src="https://user-images.githubusercontent.com/71414243/107840538-871d8680-6d81-11eb-8de9-1dbbe145f036.png">
@@ -41,8 +42,6 @@ We used Leaflet and GEO mapping on JavaScript
 
 <img width="854" alt="Screen Shot 2021-02-10 at 10 50 18 PM" src="https://user-images.githubusercontent.com/71414243/107602359-367a2200-6bf7-11eb-8115-e1d291679437.png">
 
-
-
 ### Load 
 
 For this project to efficiently work we used Python Jupyter Notebook to load the clean transformed data in to MongoDB & MySQL database. 
@@ -53,10 +52,6 @@ Python Flask powered a restful API were used to deploy the data into the web, an
 The app is deployed in Heroku in order to access the page click the following link 
 
 https://Ripe-Bananas-6.herokuapp.com/
-
-## Post - Mortem
-
-
 
 ## The Ripe Bananas Team Members
 * Desiree Herschnberger (Des)
