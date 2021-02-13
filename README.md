@@ -31,6 +31,8 @@ Our data is sourced from Reelgood.com, various streaming service websites and we
 
 To transform the data we scraped, we cleaned and transformed it by using Python Jupyter Notebook and made various comparison visualizations using pandas. 
 
+<img width="1318" alt="Screen Shot 2021-02-12 at 7 44 13 PM" src="https://user-images.githubusercontent.com/71414243/107836339-c5f41200-6d6a-11eb-8462-09388e909bec.png">
+
 <img width="1119" alt="Screen Shot 2021-02-10 at 10 48 17 PM" src="https://user-images.githubusercontent.com/71414243/107602225-e307d400-6bf6-11eb-9ea4-8f4e9771f71e.png">
 
 <img width="1397" alt="Screen Shot 2021-02-10 at 10 49 10 PM" src="https://user-images.githubusercontent.com/71414243/107602282-f9159480-6bf6-11eb-899b-a70c185ff87e.png">
