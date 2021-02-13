@@ -142,6 +142,11 @@ a.button:active {
   box-shadow: none;
   top: 5px;
 }
+@media (min-width:800px){  
+  #review img{ 
+    width:600px ; 
+  }  
+}
 @media (max-width:800px){ 
  .leaflet-container
  , .js-plotly-plot .plotly .main-svg
